@@ -121,7 +121,12 @@ class DecalClass():
         response = self.goose.get(homeurl, verify=False)
         try:
             soup = BeautifulSoup(response.text, "lxml")
-            veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"] 
+            try:
+                
+                veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"]
+            except:
+                print("Your cookie is invalid, go update it.")
+                input()
         except NameError:
             print(NameError)
             return False
@@ -246,4 +251,4 @@ print("\n")
 print("Yay! All ads have been uploaded.")
 input()
 
-                         
+                          
