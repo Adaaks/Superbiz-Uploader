@@ -96,8 +96,10 @@ trs = trs.json()
 assetid = ""
 guid = 0
 
+ad_idx = 0
 
-
+gif = False
+static = False
 
 class DecalClass():
     def __init__(self, cookie):
@@ -125,7 +127,7 @@ class DecalClass():
             return False
         return veri
     def upload(self):
-        global assetid, bloxbizid, gameid, guid, path
+        global assetid, bloxbizid, gameid, guid
         path = os.getcwd()
         path = f"{path}\\Ads"
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
@@ -154,12 +156,24 @@ class DecalClass():
 
         finalone = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
 
-        payload={
+     
+        if gif == True and static == False:
             
-          "game_id": gameid,
-          "bloxbiz_id": bloxbizid,
-          "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz"
-          }
+
+            payload={
+                
+              "game_id": gameid,
+              "bloxbiz_id": bloxbizid,
+              "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz",
+              "sheet_index": ad_idx
+              }
+        else:
+            payload={
+                "game_id": gameid,
+                "bloxbiz_id": bloxbizid,
+                "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz"
+              
+                }
 
         
         headers = {
@@ -170,21 +184,23 @@ class DecalClass():
 
         finalone1 = session.post(finalone,headers=headers,json=payload)
         if finalone1.status_code == 200:
-            print("Uploaded to bloxbiz successfully.")
+            print("Uploaded 1x advert to Bloxbiz")
+            
         else:
             print("Issue with uploading to bloxbiz.")
                 
                 
 
 
+
 class DataScraper():
     def scrape(self, data):
-        global assetid, headers, guid, path
+        global assetid, headers, guid, gif, static, ad_idx
         
         urls = []
         for campain in data["data"]:
             for ad in campain["ads"]:
-                for ad_url in ad["ad_url"]:
+                for ad_idx, ad_url in enumerate(ad["ad_url"],0):
                     if type(ad_url) == str:
                         if ad.get("dev_ad_url") is None:
                             if ad["creative_asset_s3"] not in urls:
@@ -192,7 +208,13 @@ class DataScraper():
                                
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                                urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                
+                                
+                                
+                                
+                                urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                static = True
+                                gif = False
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
                                 
@@ -202,11 +224,16 @@ class DataScraper():
                     if ad_url.get("dev_ad_url") is None:
                         if ad_url["creative_asset_s3"] not in urls:
                                 urls.append(ad_url["creative_asset_s3"])
-                               
+                                
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                        
-                                urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                
+                                
+
+                                
+                                urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                gif = True
+                                static = False
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
                              
@@ -219,4 +246,4 @@ print("\n")
 print("Yay! All ads have been uploaded.")
 input()
 
-                          
+                         
