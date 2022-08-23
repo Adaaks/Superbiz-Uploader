@@ -172,7 +172,7 @@ class DecalClass():
               "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz",
               "sheet_index": ad_idx
               }
-        else:
+        elif static == True and gif == False:
             payload={
                 "game_id": gameid,
                 "bloxbiz_id": bloxbizid,
