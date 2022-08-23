@@ -125,7 +125,7 @@ class DecalClass():
             return False
         return veri
     def upload(self):
-        global assetid, bloxbizid, gameid, guid
+        global assetid, bloxbizid, gameid, guid, path
         path = os.getcwd()
         path = f"{path}\\Ads"
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
@@ -179,7 +179,7 @@ class DecalClass():
 
 class DataScraper():
     def scrape(self, data):
-        global assetid, headers, guid
+        global assetid, headers, guid, path
         
         urls = []
         for campain in data["data"]:
@@ -204,6 +204,8 @@ class DataScraper():
                                 urls.append(ad_url["creative_asset_s3"])
                                
                                 guid = ad["GUID"]
+                                path = os.getcwd()
+                        
                                 urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
