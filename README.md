@@ -3,7 +3,7 @@
 
 # Note
 WARNING: By running this program, you agree for all of the ads here:
-https://dev.bloxbiz.com/dashboard/ad-control to be shown to your game.
+https://dev.bloxbiz.com/dashboard/ad-control to be uploaded to your game.
 
 
 # Instructions
