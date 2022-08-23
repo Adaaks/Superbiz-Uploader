@@ -1,6 +1,3 @@
-# Bloxbiz-Uploader
-- This program will allow automate the process of uploading the ads to roblox and back to bloxbiz.
-
 -------------------------------------------------------------------------------------------------------
 
 # Note
