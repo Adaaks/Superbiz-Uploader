@@ -10,6 +10,8 @@ Not affiliated with Bloxbiz or Super Biz
 
 # Instructions
 
+IMPORTANT: Make a folder name "Ads" in the same directory as the python program, otherwise it won't work.
+
 Click on file url bar above the files, and replace it with:
 pip install -r requirements.txt
 
