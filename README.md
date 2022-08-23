@@ -5,6 +5,8 @@
 WARNING: By running this program, you agree for all of the ads here:
 https://dev.bloxbiz.com/dashboard/ad-control to be uploaded to your game.
 
+Not affiliated with Bloxbiz or Super Biz
+- Created by a user of the service
 
 # Instructions
 Click on file url bar above the files, and replace it with:
