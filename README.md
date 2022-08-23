@@ -1,9 +1,12 @@
 # Bloxbiz-Uploader
+- This program will allow automate the process of uploading the ads to roblox and back to bloxbiz.
 
+# Note
 WARNING: By running this program, you agree for all of the ads here:
 https://dev.bloxbiz.com/dashboard/ad-control to be shown to your game.
 
 
+# Instructions
 Click on file url bar above the files, and replace it with:
 pip install -r requirements.txt
 
