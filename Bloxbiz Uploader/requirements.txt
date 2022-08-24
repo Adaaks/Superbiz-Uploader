@@ -3,3 +3,5 @@ configparser==5.2.0
 urllib3==1.26.11
 bs4==0.0.1
 beautifulsoup4==4.11.1
+lxml
+html5lib
