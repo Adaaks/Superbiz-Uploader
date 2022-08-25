@@ -204,7 +204,7 @@ class DataScraper():
                                 urls.append(ad["creative_asset_s3"])
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                                urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
                                 static = True
                                 gif = False
                                 Decal = DecalClass(cookie)
