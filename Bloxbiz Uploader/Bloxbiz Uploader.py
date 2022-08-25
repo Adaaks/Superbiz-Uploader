@@ -1,6 +1,5 @@
 
 try:
-    
     import requests
     import urllib.request
     import os
@@ -45,7 +44,6 @@ def login(mail,password):
         input()
     return s
 
-
 session = login(email,password)
 
 headers = {
@@ -62,9 +60,8 @@ print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to b
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
 
-getgameid = session.get("https://portal-api.bloxbiz.com/dev/games/list?with_live_status=true",headers=headers)
+getgameid = session.get("https://portal-api.bloxbiz.com/dev/games/list?with_live_status=false",headers=headers)
 getgameid = getgameid.json()
-
 count = 0
 
 while True:
@@ -75,15 +72,13 @@ while True:
     except:
         print(f"{Fore.RED}Oops! Seems you like you don't have more games - lets go back.")
         count = 0
-        
-        
+    
     asking = str(input(f"{Fore.CYAN}Would you like to select (yes/no)?\n{Fore.YELLOW}- {ask2}: "))
 
     if asking.upper() == "NO":
         count+=1
         print("\n")
         
-
     elif asking.upper() == "YES":
         print(f"{Fore.GREEN}Chosen, I will begin to upload your ads.")
         print("\n")
@@ -93,28 +88,21 @@ while True:
         print(f"{Fore.RED}[ERROR] Please answer with either yes/no.")
         print("\n")
             
-        
-
-
 getads = f"https://portal-api.bloxbiz.com/dev/dev_campaign_manager/list?game_id={gameid}&bloxbiz_id={bloxbizid}"
 trs = session.get(getads,headers=headers)
 trs = trs.json()
-
-    
-             
+           
 assetid = ""
 guid = 0
-
 ad_idx = 0
-
 gif = False
 static = False
 countuploaded = 0
 
 class DecalClass():
     def __init__(self, cookie):
+        
         try:
-
             self.goose = requests.Session()
             self.goose.cookies.update({
                 '.ROBLOSECURITY': cookie
@@ -125,15 +113,14 @@ class DecalClass():
         except:
             print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini.")
             input()
-        
+            
     def getToken(self): 
         homeurl= 'https://www.roblox.com/build/upload' 
-        #sleep(1)
         response = self.goose.get(homeurl, verify=False)
+        
         try:
             soup = BeautifulSoup(response.text, "lxml")
-            try:
-                
+            try: 
                 veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"]
             except:
                 print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n-Ensure the cookie is not in speech marks\n- Ensure it's still valid")
@@ -142,10 +129,12 @@ class DecalClass():
             print(NameError)
             return False
         return veri
+    
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded
         path = os.getcwd()
         path = f"{path}\\Ads"
+        
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
             files = {'file': ('lol.png', f, 'image/png')} 
             data = {
@@ -161,59 +150,49 @@ class DecalClass():
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
             assetid = responseurl[62:73]
+            
         path = os.getcwd()
         folder_path = (fr'{path}\\Ads')
         test = os.listdir(folder_path)
+        
         for images in test:
             if images.endswith(".png"):
                 os.remove(os.path.join(folder_path, images))
-
         session = login(email,password)
-
         finalone = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
-
-     
+        
         if gif == True and static == False:
-            
-
             payload={
-                
               "game_id": gameid,
               "bloxbiz_id": bloxbizid,
               "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz",
               "sheet_index": ad_idx
               }
+            
         elif static == True and gif == False:
             payload={
                 "game_id": gameid,
                 "bloxbiz_id": bloxbizid,
                 "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz"
-              
                 }
-
-        
+            
         headers = {
             
             'authorization': f"Bearer {res2}",
             'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
             }
-
+        
         finalone1 = session.post(finalone,headers=headers,json=payload)
+        
         if finalone1.status_code == 200:
             countuploaded+=1
             print(f"{Fore.GREEN}[{countuploaded}] Successfully uploaded an advert.")
-            
         else:
             print(f"{Fore.RED}[ERROR - {finalone1.status_code}] Failed to upload an advert.")
                 
-                
-
-
-
 class DataScraper():
     def scrape(self, data):
         global assetid, headers, guid, gif, static, ad_idx
-        
         urls = []
         for campain in data["data"]:
             for ad in campain["ads"]:
@@ -221,46 +200,33 @@ class DataScraper():
                     if type(ad_url) == str:
                         if ad.get("dev_ad_url") is None:
                             if ad["creative_asset_s3"] not in urls:
+                                
                                 urls.append(ad["creative_asset_s3"])
-                               
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                                
-                                
-                                
-                                
-                                urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
                                 static = True
                                 gif = False
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
                                 
-
-                                
                         continue
                     if ad_url.get("dev_ad_url") is None:
                         if ad_url["creative_asset_s3"] not in urls:
+                            
                                 urls.append(ad_url["creative_asset_s3"])
-                                
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                                
-                                
-
-                                
                                 urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
                                 gif = True
                                 static = False
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
-                             
-                                
+                                     
         return urls
 
 scraper = DataScraper()
-urls = scraper.scrape(trs) #scrape
+urls = scraper.scrape(trs) 
 print("\n")
 print(f"{Fore.CYAN}Completed uploading all adverts.")
-input()
-
-                         
+input()                
