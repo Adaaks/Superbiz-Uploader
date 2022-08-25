@@ -1,10 +1,19 @@
-import requests
-import urllib.request
-import os
-import json
-import configparser
-from bs4 import BeautifulSoup
-import urllib3; urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+try:
+    
+    import requests
+    import urllib.request
+    import os
+    os.system('cls')
+    import json
+    import configparser
+    from bs4 import BeautifulSoup
+    import urllib3; urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    import colorama
+    from colorama import init, Fore, Back, Style
+    init()
+except:
+    print("[ERROR] There was an issue importing the required modules, make sure to install all modules in requirements.txt.")
 
 
 config = configparser.ConfigParser()
@@ -32,7 +41,7 @@ def login(mail,password):
         res = res.json()
         res2 = res['access_token']
     except:
-        print("Error, incorrect email or password - please check Setup.ini.")
+        print(f"{Fore.RED}[ERROR] Your bloxbiz credentials are invalid.")
         input()
     return s
 
@@ -41,7 +50,7 @@ session = login(email,password)
 
 headers = {
     'authorization': f"Bearer {res2}",
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.54'
+    'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
     }
 lol = session.get("https://portal-api.bloxbiz.com/dev/account/details", headers=headers)
 lol = lol.json()
@@ -49,43 +58,43 @@ bloxbizid = lol['data']['bloxbiz_id']
 apikey = lol['data']['api_key']
 first_name = lol['data']['first_name']
 
-print(f"Welcome, {first_name} - you have successfully logged in.")
+print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to bloxbiz.")
+print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
 
 getgameid = session.get("https://portal-api.bloxbiz.com/dev/games/list?with_live_status=true",headers=headers)
 getgameid = getgameid.json()
 
 count = 0
-def gameid3():
-    global gameid, count, ask2
-    while True:
+
+while True:
+
+    try:
+        ask2 = getgameid['data'][count]["game_name"]
+        gameid = getgameid['data'][count]["game_id"]
+    except:
+        print(f"{Fore.RED}Oops! Seems you like you don't have more games - lets go back.")
+        count = 0
         
-        try:
-            ask2 = getgameid['data'][count]["game_name"]
-            gameid = getgameid['data'][count]["game_id"]
-        except:
-            print("Oops! Seems you like you don't have more games - lets go back.")
-            count = 0
-            gameid3()
+        
+    asking = str(input(f"{Fore.CYAN}Would you like to select (yes/no)?\n{Fore.YELLOW}- {ask2}: "))
+
+    if asking.upper() == "NO":
+        count+=1
+        print("\n")
+        
+
+    elif asking.upper() == "YES":
+        print(f"{Fore.GREEN}Chosen, I will begin to upload your ads.")
+        print("\n")
+        break
+
+    else:
+        print(f"{Fore.RED}[ERROR] Please answer with either yes/no.")
+        print("\n")
             
-        asking = str(input(f"Would you like to select (yes/no)?\n- {ask2}: "))
-
-        if asking.upper() == "NO":
-            count+=1
-            print("\n")
-            gameid3()
-
-        elif asking.upper() == "YES":
-            print("Great, I will begin to upload your ads.")
-            print("\n")
-            break
         
-        else:
-            print("Error! Please answer with either yes or no.")
-            print("\n")
-            gameid3()
-        
-gameid3()
+
 
 getads = f"https://portal-api.bloxbiz.com/dev/dev_campaign_manager/list?game_id={gameid}&bloxbiz_id={bloxbizid}"
 trs = session.get(getads,headers=headers)
@@ -100,6 +109,7 @@ ad_idx = 0
 
 gif = False
 static = False
+countuploaded = 0
 
 class DecalClass():
     def __init__(self, cookie):
@@ -113,7 +123,8 @@ class DecalClass():
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134", #might as well use a User Agent
             })
         except:
-            print("Error! Invalid cookie, please check your setup.ini.")
+            print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini.")
+            input()
         
     def getToken(self): 
         homeurl= 'https://www.roblox.com/build/upload' 
@@ -125,14 +136,14 @@ class DecalClass():
                 
                 veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"]
             except:
-                print("Your cookie is invalid, go update it.")
+                print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n-Ensure the cookie is not in speech marks\n- Ensure it's still valid")
                 input()
         except NameError:
             print(NameError)
             return False
         return veri
     def upload(self):
-        global assetid, bloxbizid, gameid, guid
+        global assetid, bloxbizid, gameid, guid, countuploaded
         path = os.getcwd()
         path = f"{path}\\Ads"
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
@@ -184,15 +195,16 @@ class DecalClass():
         headers = {
             
             'authorization': f"Bearer {res2}",
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.54'
+            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
             }
 
         finalone1 = session.post(finalone,headers=headers,json=payload)
         if finalone1.status_code == 200:
-            print("Uploaded 1x advert to Bloxbiz")
+            countuploaded+=1
+            print(f"{Fore.GREEN}[{countuploaded}] Successfully uploaded an advert.")
             
         else:
-            print("Issue with uploading to bloxbiz.")
+            print(f"{Fore.RED}[ERROR - {finalone1.status_code}] Failed to upload an advert.")
                 
                 
 
@@ -248,7 +260,7 @@ class DataScraper():
 scraper = DataScraper()
 urls = scraper.scrape(trs) #scrape
 print("\n")
-print("Yay! All ads have been uploaded.")
+print(f"{Fore.CYAN}Completed uploading all adverts.")
 input()
 
                          
