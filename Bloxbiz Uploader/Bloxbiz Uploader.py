@@ -56,6 +56,11 @@ bloxbizid = lol['data']['bloxbiz_id']
 apikey = lol['data']['api_key']
 first_name = lol['data']['first_name']
 
+import json
+import datetime
+
+
+
 print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to bloxbiz.")
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
@@ -63,6 +68,44 @@ print("\n")
 getgameid = session.get("https://portal-api.bloxbiz.com/dev/games/list?with_live_status=false",headers=headers)
 getgameid = getgameid.json()
 count = 0
+##################
+gameid = 0
+
+class RevenueScraper():
+
+
+
+    def scrape(self, data):
+        """Totals revenue for each month
+
+        Keyword arguments:
+        json_dict -- The python dictionary containing data from json
+        Return: Dict
+        """
+        month_dict = {
+            "January": [],
+            "February": [],
+            "March": [],
+            "April": [],
+            "May": [],
+            "June": [],
+            "July": [],
+            "August": [],
+            "September": [],
+            "October": [],
+            "November": [],
+            "December": [],
+        }
+        for entry in data["data"]:
+            data = datetime.datetime.strptime(entry["end_day"], "%Y-%m-%d")
+            month = data.strftime("%B")
+            try:
+                month_dict[month].append(entry["report_contents"]["Amount Earned"])
+            except:
+                continue
+        for k, v in month_dict.items():
+            month_dict[k] = round(sum(v),2)
+        return month_dict
 
 while True:
 
@@ -81,13 +124,35 @@ while True:
         
     elif asking.upper() == "YES":
         print(f"{Fore.GREEN}Chosen, I will begin to upload your ads.")
+
+        revenuedata = {
+            "category": "revenue",
+            "end_day": "2099-08-30",
+            "game_id": gameid,
+            "report_type": "daily_performance",
+            "start_day": "2020-01-01"
+            }
+
+        send1 = session.post("https://portal-api.bloxbiz.com/dev/reports",headers=headers,json=revenuedata)
+        send1 = send1.json()
+        scraper = RevenueScraper()
+        response = scraper.scrape(send1)
+        date = datetime.date.today().strftime("%B")
+        print(f"{Fore.CYAN}Bloxbiz Balance: $ {response[date]}")
         print("\n")
         break
 
     else:
         print(f"{Fore.RED}[ERROR] Please answer with either yes/no.")
         print("\n")
-            
+
+
+
+
+
+
+####################################################
+        
 getads = f"https://portal-api.bloxbiz.com/dev/dev_campaign_manager/list?game_id={gameid}&bloxbiz_id={bloxbizid}"
 trs = session.get(getads,headers=headers)
 trs = trs.json()
@@ -123,7 +188,7 @@ class DecalClass():
             try: 
                 veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"]
             except:
-                print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n-Ensure the cookie is not in speech marks\n- Ensure it's still valid")
+                print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n- Ensure the cookie is not in speech marks\n- Ensure it's still valid")
                 input()
         except NameError:
             print(NameError)
