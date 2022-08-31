@@ -10,7 +10,7 @@ https://dev.bloxbiz.com/dashboard/ad-control to be uploaded to your game.
 Not affiliated with Bloxbiz or Super Biz
 - Created by a user of the service
 
-The program was made with
+The program was made with python version: 3.10
 
 Issues?
 Contact Adaks#0001
