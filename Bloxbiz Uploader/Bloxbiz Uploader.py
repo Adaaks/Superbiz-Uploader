@@ -137,8 +137,17 @@ while True:
         send1 = send1.json()
         scraper = RevenueScraper()
         response = scraper.scrape(send1)
-        date = datetime.date.today().strftime("%B")
-        print(f"{Fore.CYAN}Bloxbiz Balance: $ {response[date]}")
+        
+        current = datetime.date.today()
+        current2 = current.strftime("%B")
+        _first_day = current.replace(day=1)
+        prev_month_lastday = _first_day - datetime.timedelta(days=1)
+        previous = prev_month_lastday.replace(day=1)
+        previous = previous.strftime("%B")
+        
+        print("\n")
+        print(f"{Fore.CYAN}Current Month: $ {response[current2]}")
+        print(f"{Fore.CYAN}Last Month: $ {response[previous]}")
         print("\n")
         break
 
