@@ -270,6 +270,8 @@ class DataScraper():
         urls = []
         for campain in data["data"]:
             for ad in campain["ads"]:
+                if ad["ad_url"] is None:
+                    continue
                 for ad_idx, ad_url in enumerate(ad["ad_url"],0):
                     if type(ad_url) == str:
                         if ad.get("dev_ad_url") is None:
