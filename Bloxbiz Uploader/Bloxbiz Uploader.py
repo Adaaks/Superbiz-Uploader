@@ -303,6 +303,5 @@ class DataScraper():
 
 scraper = DataScraper()
 urls = scraper.scrape(trs) 
-print("\n")
 print(f"{Fore.CYAN}Completed uploading all adverts.")
 input()                
