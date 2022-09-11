@@ -113,7 +113,7 @@ while True:
         ask2 = getgameid['data'][count]["game_name"]
         gameid = getgameid['data'][count]["game_id"]
     except:
-        print(f"{Fore.RED}Oops! Seems you like you don't have more games - lets go back.")
+        print(f"{Fore.RED}Oops! Seems you like you don't have more games - let's go back.")
         count = 0
     
     asking = str(input(f"{Fore.CYAN}Would you like to select (yes/no)?\n{Fore.YELLOW}- {ask2}: "))
