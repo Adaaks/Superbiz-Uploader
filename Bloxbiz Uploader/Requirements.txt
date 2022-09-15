@@ -6,3 +6,4 @@ beautifulsoup4==4.11.1
 lxml
 html5lib
 colorama
+datetime
