@@ -97,8 +97,14 @@ class RevenueScraper():
             "December": [],
         }
         for entry in data["data"]:
-            data = datetime.datetime.strptime(entry["end_day"], "%Y-%m-%d")
-            month = data.strftime("%B")
+            try:
+                
+                data = datetime.datetime.strptime(entry["end_day"], "%Y-%m-%d")
+                month = data.strftime("%B")
+            except:
+                continue
+                
+             
             try:
                 month_dict[month].append(entry["report_contents"]["Amount Earned"])
             except:
