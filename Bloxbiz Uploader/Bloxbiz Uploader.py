@@ -14,6 +14,16 @@ try:
 except:
     print("[ERROR] There was an issue importing the required modules, make sure to install all modules in requirements.txt.")
 
+path = os.getcwd()
+folder_path = (fr'{path}\\Ads')
+test = os.listdir(folder_path)
+
+for images in test:
+    if images.endswith(".mp3"):
+        os.remove(os.path.join(folder_path, images))
+for images in test:
+    if images.endswith(".png"):
+        os.remove(os.path.join(folder_path, images))
 
 config = configparser.ConfigParser()
 config.read_file(open(r"Setup.ini"))
@@ -58,9 +68,15 @@ first_name = lol['data']['first_name']
 
 import json
 import datetime
-
-
-
+print(f"""{Fore.MAGENTA}
+⠀⢀⣾⠳⠳⠳⠳⡳⣎⠀⠀⠀⠀⣌⣌⣌⣌⢌⢈⠀⢀⣌⣌⠈⠀⠀⠀⠀⢈⣌⢈⠈⠀⣌⣌⢌⠀⣈⣌⣌⠀⣌⣌⣌⣌⢌⢈⠀⢀⣌⣌⠀⣈⣌⣌⣌⣌⣌⢌
+⢀⡾⠃⠀⠀⠀⠀⠀⡱⣏⠀⠀⠀⣿⣿⠿⠳⣿⣿⠏⣰⣿⣿⠏⠀⠀⣈⣿⣿⡷⣷⣿⢎⠰⣿⣿⣮⣿⣿⠃⠀⣿⣿⠿⡳⣿⣿⠎⣰⣿⣿⠀⡷⡷⡷⣿⣿⣿⡿
+⣾⢍⢈⢈⢈⠈⠀⠀⠀⣰⠏⠀⠀⣿⣿⣯⣮⣿⣿⠉⣰⣿⣿⠏⠀⠀⣿⣿⠁⠀⠀⣿⣿⠀⣱⣿⣿⣿⠏⠀⠀⣿⣿⣯⣮⣿⣿⠉⣰⣿⣿⠀⠀⣀⣾⣿⣿⠓⠀
+⠰⣿⣿⣿⣿⣿⠌⠀⣀⡾⠁⠀⠀⣿⣿⢏⢈⣿⣿⠯⣰⣿⣿⣏⣌⢌⡳⣿⣯⣌⣬⣿⠿⣀⣿⣿⣿⣿⣿⠌⠀⣿⣿⢏⣈⣿⣿⠏⣰⣿⣿⠀⣬⣿⣿⣿⣍⣌⣌
+⠀⠰⣿⣿⣿⣿⣿⣌⡿⠁⠀⠀⠀⡷⡷⡷⡷⠷⠳⠁⠰⡷⡷⡷⡷⡷⠆⠑⠳⡷⠳⠓⠀⡷⡷⠷⠀⡳⡷⡷⠀⡷⡷⡷⡷⠷⠳⠁⠰⡷⡷⠀⡳⡷⡷⡷⡷⡷⠷
+⠀⠀⠐⠑⠑⠑⠑⠑⠀⠀⠀⠀
+{Fore.YELLOW}⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑
+""")
 print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to bloxbiz.")
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
@@ -112,54 +128,80 @@ class RevenueScraper():
         for k, v in month_dict.items():
             month_dict[k] = round(sum(v),2)
         return month_dict
+count = 0
 
-while True:
 
-    try:
-        ask2 = getgameid['data'][count]["game_name"]
-        gameid = getgameid['data'][count]["game_id"]
-    except:
-        print(f"{Fore.RED}Oops! Seems you like you don't have more games - let's go back.")
-        count = 0
     
-    asking = str(input(f"{Fore.CYAN}Would you like to select (yes/no)?\n{Fore.YELLOW}- {ask2}: "))
+print(f"{Fore.CYAN}Please select a game, reply with a number choice.")
 
-    if asking.upper() == "NO":
-        count+=1
+ask2 = getgameid['data']
+list = []
+max = 0
+for data in ask2:
+    max+=1
+    list.append(data)
+
+actualmax = max
+max = -1
+current = 1
+actualcurrent = 0
+for i in range(actualmax):
+    gamename = getgameid['data'][actualcurrent]['game_name']
+    print(f"{Fore.YELLOW}[{current}] {gamename}")
+    current +=1
+    actualcurrent +=1
+print("\n")
+def inputs2():
+    global gameid
+    try:
+
+        whichone = int(input(f"{Fore.MAGENTA}Enter your choice: "))
+    
+
+        if whichone <= actualmax and whichone >= 1:
+            gamename = getgameid['data'][whichone-1]['game_name']
+            gameid = getgameid['data'][whichone-1]["game_id"]
+            print("\n")
+            print(f"{Fore.CYAN}Game: {gamename}")
+        else:
+            print(f"{Fore.RED}Error, please choose between games: 1-{actualmax}")
+            print("\n")
+            inputs2()
+    
+    except:
+        print(f"{Fore.RED}Error, invalid input - enter numbers only.")
         print("\n")
+        inputs2()
         
-    elif asking.upper() == "YES":
-        print(f"{Fore.GREEN}Chosen, I will begin to upload your ads.")
+inputs2()
 
-        revenuedata = {
-            "category": "revenue",
-            "end_day": "2099-08-30",
-            "game_id": gameid,
-            "report_type": "daily_performance",
-            "start_day": "2020-01-01"
-            }
+revenuedata = {
+    "category": "revenue",
+    "end_day": "2099-08-30",
+    "game_id": gameid,
+    "report_type": "daily_performance",
+    "start_day": "2020-01-01"
+    }
 
-        send1 = session.post("https://portal-api.bloxbiz.com/dev/reports",headers=headers,json=revenuedata)
-        send1 = send1.json()
-        scraper = RevenueScraper()
-        response = scraper.scrape(send1)
-        
-        current = datetime.date.today()
-        current2 = current.strftime("%B")
-        _first_day = current.replace(day=1)
-        prev_month_lastday = _first_day - datetime.timedelta(days=1)
-        previous = prev_month_lastday.replace(day=1)
-        previous = previous.strftime("%B")
-        
-        print("\n")
-        print(f"{Fore.CYAN}Current Month: $ {response[current2]}")
-        print(f"{Fore.CYAN}Last Month: $ {response[previous]}")
-        print("\n")
-        break
+send1 = session.post("https://portal-api.bloxbiz.com/dev/reports",headers=headers,json=revenuedata)
+send1 = send1.json()
+scraper = RevenueScraper()
+response = scraper.scrape(send1)
 
-    else:
-        print(f"{Fore.RED}[ERROR] Please answer with either yes/no.")
-        print("\n")
+current = datetime.date.today()
+current2 = current.strftime("%B")
+_first_day = current.replace(day=1)
+prev_month_lastday = _first_day - datetime.timedelta(days=1)
+previous = prev_month_lastday.replace(day=1)
+previous = previous.strftime("%B")
+
+
+print(f"{Fore.CYAN}Current Month: $ {response[current2]}")
+print(f"{Fore.CYAN}Last Month: $ {response[previous]}")
+print("\n")
+    
+
+
 
 
 
@@ -229,7 +271,8 @@ class DecalClass():
             }
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
-            assetid = responseurl[62:73]
+            new = responseurl.split("=")
+            assetid = new[2]
             
         path = os.getcwd()
         folder_path = (fr'{path}\\Ads')
@@ -269,13 +312,155 @@ class DecalClass():
             print(f"{Fore.GREEN}[{countuploaded}] Successfully uploaded an advert.")
         else:
             print(f"{Fore.RED}[ERROR - {finalone1.status_code}] Failed to upload an advert.")
-                
+
+class AudioClass():
+    def __init__(self, cookie):
+
+        try:
+            self.goose = requests.Session()
+            self.goose.cookies.update({
+                '.ROBLOSECURITY': cookie
+            })
+            self.goose.headers.update({
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134",
+                # might as well use a User Agent
+            })
+        except:
+            print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini.")
+            input()
+
+    def getToken(self):
+        homeurl = 'https://www.roblox.com/build/upload'
+        response = self.goose.get(homeurl, verify=False)
+
+        try:
+            soup = BeautifulSoup(response.text, "lxml")
+            try:
+                veri = soup.find("input", {"name": "__RequestVerificationToken"}).attrs["value"]
+            except:
+                print(
+                    f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n- Ensure the cookie is not in speech marks\n- Ensure it's still valid")
+                input()
+        except NameError:
+            print(NameError)
+            return False
+        return veri
+
+    def upload(self):
+        global assetid, bloxbizid, gameid, guid, countuploaded
+        path = os.getcwd()
+        path = f"{path}\\Ads"
+
+        with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
+            files = {'file': ('lol.mp3', f, 'audio/wav')}
+            data = {
+                '__RequestVerificationToken': self.getToken(),
+                'assetTypeId': '3',
+                'isOggUploadEnabled': 'True',
+                'isTgaUploadEnabled': 'True',
+
+                'onVerificationPage': "False",
+                "captchaEnabled": "True",
+                'name': f"{filename}"
+            }
+            response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
+            responseurl = response.url
+            new = responseurl.split("=")
+            assetid = new[2]
+
+
+        path = os.getcwd()
+        folder_path = (fr'{path}\\Ads')
+        test = os.listdir(folder_path)
+
+        for images in test:
+            if images.endswith(".mp3"):
+                os.remove(os.path.join(folder_path, images))
+        for images in test:
+            if images.endswith(".png"):
+                os.remove(os.path.join(folder_path, images))
+
+
+        session = requests.Session()
+        session.cookies[".ROBLOSECURITY"] = cookie
+        req = session.post(
+            url="https://auth.roblox.com/"
+        )
+        if "X-CSRF-Token" in req.headers:
+            session.headers["X-CSRF-Token"] = req.headers["X-CSRF-Token"]
+        req2 = session.post(
+            url="https://auth.roblox.com/"
+        )
+        check = session.get('https://api.roblox.com/currency/balance')
+        headers = {
+
+            'X-CSRF-Token': f'{session.headers["X-CSRF-Token"]}',
+            'Cookie': f'.ROBLOSECURITY={cookie}'
+
+        }
+        data2 = {
+            "requests": [
+                {
+                    "action": "Use",
+                    "subjectId": f"{gameid}",
+                    "subjectType": "Universe",
+
+                }
+            ]
+        }
+        url2 = f"https://apis.roblox.com/asset-permissions-api/v1/assets/{assetid}/permissions"
+        grantperms = session.patch(url2, headers=headers,json=data2)
+
+
+        session = login(email, password)
+        finalone3 = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
+
+        data69 = {
+            "bloxbiz_id": bloxbizid,
+            "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/",
+            "game_id": gameid,
+            "sheet_index": "audio"
+        }
+
+        headers = {
+
+            'authorization': f"Bearer {res2}",
+            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
+        }
+
+        finalone3 = session.post(finalone3, headers=headers, json=data69)
+
+
+        if finalone3.status_code == 200:
+            countuploaded += 1
+            print(f"{Fore.GREEN}[{countuploaded}] Successfully uploaded a audio.")
+        else:
+            print(f"{Fore.RED}[ERROR - {finalone3.status_code}] Failed to upload a audio.")
+filename = ""
+
+
 class DataScraper():
     def scrape(self, data):
-        global assetid, headers, guid, gif, static, ad_idx
+        global assetid, headers, guid, gif, static, ad_idx, filename
         urls = []
         for campain in data["data"]:
             for ad in campain["ads"]:
+                if ad.get("dev_creative_asset_url") is None:
+                    if ad.get("creative_audio_s3") is not None:
+                        if ad.get("creative_audio_s3") not in urls:
+                            urls.append(ad.get("creative_audio_s3"))
+                            
+                            guid = ad["GUID"]
+                            path = os.getcwd()
+                            lol2 = ad["creative_audio_url"]
+                            new = lol2.split("/")
+                            filename = new[5]
+                            urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}\\Ads\\{filename}.mp3")
+                            static = False
+                            gif = False
+
+                            Audio = AudioClass(cookie)
+                            Audio.upload()
                 if ad["ad_url"] is None:
                     continue
                 for ad_idx, ad_url in enumerate(ad["ad_url"],0):
