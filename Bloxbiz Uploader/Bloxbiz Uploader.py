@@ -414,7 +414,7 @@ class AudioClass():
             countuploaded += 1
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully uploaded a audio ({advertname}).")
         else:
-            print(f"{Fore.RED}[ERROR - {finalone3.status_code}] Failed to upload a audio.")
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to upload a audio ({advertname}).")
 filename = ""
 
 class CountScraper():
