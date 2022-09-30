@@ -13,6 +13,7 @@ try:
     init()
 except:
     print("[ERROR] There was an issue importing the required modules, make sure to install all modules in requirements.txt.")
+    input()
 
 path = os.getcwd()
 folder_path = (fr'{path}\\Ads')
@@ -78,7 +79,8 @@ getgameid = getgameid.json()
 count = 0
 ##################
 gameid = 0
-
+countads = 0
+advertname = ""
 class RevenueScraper():
 
 
@@ -301,9 +303,9 @@ class DecalClass():
         
         if finalone1.status_code == 200:
             countuploaded+=1
-            print(f"{Fore.GREEN}[{countuploaded}] Successfully uploaded an advert.")
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully uploaded a decal ({advertname}).")
         else:
-            print(f"{Fore.RED}[ERROR - {finalone1.status_code}] Failed to upload an advert.")
+            print(f"{Fore.RED}[ERROR - {finalone1.status_code}] Failed to upload a decal")
 
 class AudioClass():
     def __init__(self, cookie):
@@ -425,17 +427,51 @@ class AudioClass():
 
         if finalone3.status_code == 200:
             countuploaded += 1
-            print(f"{Fore.GREEN}[{countuploaded}] Successfully uploaded a audio.")
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully uploaded a audio ({advertname}).")
         else:
             print(f"{Fore.RED}[ERROR - {finalone3.status_code}] Failed to upload a audio.")
 filename = ""
 
+class CountScraper():
+    def scrape(self, data):
+        global assetid, headers, guid, gif, static, ad_idx, filename, countads
+        drls = []
+        for campain in data["data"]:
+            for ad in campain["ads"]:
+                if ad.get("dev_creative_asset_url") is None:
+                    if ad.get("creative_audio_s3") is not None:
+                        if ad.get("creative_audio_s3") not in drls:
+                            drls.append(ad.get("creative_audio_s3"))
+                            countads+=1
+                if ad["ad_url"] is None:
+                    continue
+                for ad_idx, ad_url in enumerate(ad["ad_url"],0):
+                    if type(ad_url) == str:
+                        if ad.get("dev_ad_url") is None:
+                            if ad["creative_asset_s3"] not in drls:
+                                
+                                drls.append(ad["creative_asset_s3"])
+                                countads+=1
+                                
+                        continue
+                    if ad_url.get("dev_ad_url") is None:
+                        if ad_url["creative_asset_s3"] not in drls:
+                            
+                                drls.append(ad_url["creative_asset_s3"])
+                                countads+=1
+                                     
+        return drls
+
+scrapers = CountScraper()
+drls = scrapers.scrape(trs) 
+
 
 class DataScraper():
     def scrape(self, data):
-        global assetid, headers, guid, gif, static, ad_idx, filename
+        global assetid, headers, guid, gif, static, ad_idx, filename,advertname
         urls = []
         for campain in data["data"]:
+            advertname = campain.get('campaign_name')
             for ad in campain["ads"]:
                 if ad.get("dev_creative_asset_url") is None:
                     if ad.get("creative_audio_s3") is not None:
@@ -472,7 +508,7 @@ class DataScraper():
                         continue
                     if ad_url.get("dev_ad_url") is None:
                         if ad_url["creative_asset_s3"] not in urls:
-                            
+                                
                                 urls.append(ad_url["creative_asset_s3"])
                                 guid = ad["GUID"]
                                 path = os.getcwd()
