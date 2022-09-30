@@ -68,15 +68,7 @@ first_name = lol['data']['first_name']
 
 import json
 import datetime
-print(f"""{Fore.MAGENTA}
-⠀⢀⣾⠳⠳⠳⠳⡳⣎⠀⠀⠀⠀⣌⣌⣌⣌⢌⢈⠀⢀⣌⣌⠈⠀⠀⠀⠀⢈⣌⢈⠈⠀⣌⣌⢌⠀⣈⣌⣌⠀⣌⣌⣌⣌⢌⢈⠀⢀⣌⣌⠀⣈⣌⣌⣌⣌⣌⢌
-⢀⡾⠃⠀⠀⠀⠀⠀⡱⣏⠀⠀⠀⣿⣿⠿⠳⣿⣿⠏⣰⣿⣿⠏⠀⠀⣈⣿⣿⡷⣷⣿⢎⠰⣿⣿⣮⣿⣿⠃⠀⣿⣿⠿⡳⣿⣿⠎⣰⣿⣿⠀⡷⡷⡷⣿⣿⣿⡿
-⣾⢍⢈⢈⢈⠈⠀⠀⠀⣰⠏⠀⠀⣿⣿⣯⣮⣿⣿⠉⣰⣿⣿⠏⠀⠀⣿⣿⠁⠀⠀⣿⣿⠀⣱⣿⣿⣿⠏⠀⠀⣿⣿⣯⣮⣿⣿⠉⣰⣿⣿⠀⠀⣀⣾⣿⣿⠓⠀
-⠰⣿⣿⣿⣿⣿⠌⠀⣀⡾⠁⠀⠀⣿⣿⢏⢈⣿⣿⠯⣰⣿⣿⣏⣌⢌⡳⣿⣯⣌⣬⣿⠿⣀⣿⣿⣿⣿⣿⠌⠀⣿⣿⢏⣈⣿⣿⠏⣰⣿⣿⠀⣬⣿⣿⣿⣍⣌⣌
-⠀⠰⣿⣿⣿⣿⣿⣌⡿⠁⠀⠀⠀⡷⡷⡷⡷⠷⠳⠁⠰⡷⡷⡷⡷⡷⠆⠑⠳⡷⠳⠓⠀⡷⡷⠷⠀⡳⡷⡷⠀⡷⡷⡷⡷⠷⠳⠁⠰⡷⡷⠀⡳⡷⡷⡷⡷⡷⠷
-⠀⠀⠐⠑⠑⠑⠑⠑⠀⠀⠀⠀
-{Fore.YELLOW}⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑⠑⠐⠑⠑⠑⠑
-""")
+
 print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to bloxbiz.")
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
