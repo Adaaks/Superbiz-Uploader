@@ -13,6 +13,7 @@ Not affiliated with Bloxbiz or Super Biz
 The program was made with python version: 3.10
 - When installing python, make sure to check the option ADD PYTHON TO PATH.
 
+## More
 If you would like to donate, it is massively appreciated. :)
 - https://www.buymeacoffee.com/adaks
 
