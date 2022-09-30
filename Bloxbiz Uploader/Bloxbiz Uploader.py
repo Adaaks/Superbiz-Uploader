@@ -3,6 +3,8 @@ try:
     import requests
     import urllib.request
     import os
+    import ctypes
+    ctypes.windll.kernel32.SetConsoleTitleW("Bloxbiz Uploader - By Adaks")
     os.system('cls')
     import json
     import configparser
@@ -83,8 +85,6 @@ countads = 0
 advertname = ""
 class RevenueScraper():
 
-
-
     def scrape(self, data):
         """Totals revenue for each month
 
@@ -113,8 +113,7 @@ class RevenueScraper():
                 month = data.strftime("%B")
             except:
                 continue
-                
-             
+                  
             try:
                 month_dict[month].append(entry["report_contents"]["Amount Earned"])
             except:
@@ -123,9 +122,7 @@ class RevenueScraper():
             month_dict[k] = round(sum(v),2)
         return month_dict
 count = 0
-
-
-    
+ 
 print(f"{Fore.CYAN}Please select a game, reply with a number choice.")
 
 ask2 = getgameid['data']
@@ -134,7 +131,6 @@ max = 0
 for data in ask2:
     max+=1
     list.append(data)
-
 actualmax = max
 max = -1
 current = 1
@@ -151,7 +147,6 @@ def inputs2():
 
         whichone = int(input(f"{Fore.MAGENTA}Enter your choice: "))
     
-
         if whichone <= actualmax and whichone >= 1:
             gamename = getgameid['data'][whichone-1]['game_name']
             gameid = getgameid['data'][whichone-1]["game_id"]
@@ -189,19 +184,10 @@ prev_month_lastday = _first_day - datetime.timedelta(days=1)
 previous = prev_month_lastday.replace(day=1)
 previous = previous.strftime("%B")
 
-
 print(f"{Fore.CYAN}Current Month: $ {response[current2]}")
 print(f"{Fore.CYAN}Last Month: $ {response[previous]}")
 print("\n")
     
-
-
-
-
-
-
-
-
 ####################################################
         
 getads = f"https://portal-api.bloxbiz.com/dev/dev_campaign_manager/list?game_id={gameid}&bloxbiz_id={bloxbizid}"
@@ -317,7 +303,7 @@ class AudioClass():
             })
             self.goose.headers.update({
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134",
-                # might as well use a User Agent
+                
             })
         except:
             print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini.")
@@ -361,7 +347,6 @@ class AudioClass():
             responseurl = response.url
             new = responseurl.split("=")
             assetid = new[2]
-
 
         path = os.getcwd()
         folder_path = (fr'{path}\\Ads')
@@ -449,22 +434,17 @@ class CountScraper():
                     if type(ad_url) == str:
                         if ad.get("dev_ad_url") is None:
                             if ad["creative_asset_s3"] not in drls:
-                                
                                 drls.append(ad["creative_asset_s3"])
                                 countads+=1
-                                
                         continue
                     if ad_url.get("dev_ad_url") is None:
                         if ad_url["creative_asset_s3"] not in drls:
-                            
                                 drls.append(ad_url["creative_asset_s3"])
-                                countads+=1
-                                     
+                                countads+=1                  
         return drls
 
 scrapers = CountScraper()
 drls = scrapers.scrape(trs) 
-
 
 class DataScraper():
     def scrape(self, data):
@@ -477,7 +457,7 @@ class DataScraper():
                     if ad.get("creative_audio_s3") is not None:
                         if ad.get("creative_audio_s3") not in urls:
                             urls.append(ad.get("creative_audio_s3"))
-                            
+                        
                             guid = ad["GUID"]
                             path = os.getcwd()
                             lol2 = ad["creative_audio_url"]
