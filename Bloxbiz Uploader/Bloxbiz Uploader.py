@@ -239,7 +239,7 @@ class DecalClass():
             try: 
                 veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"]
             except:
-                print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n- Ensure the cookie is not in speech marks\n- Ensure it's still valid")
+                print(f"{Fore.RED}Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n- Ensure the cookie is not in speech marks\n- Ensure it's still valid")
                 input()
         except NameError:
             print(NameError)
