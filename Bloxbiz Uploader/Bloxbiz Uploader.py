@@ -291,7 +291,7 @@ class DecalClass():
             countuploaded+=1
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully uploaded a decal ({advertname}).")
         else:
-            print(f"{Fore.RED}[ERROR - {finalone1.status_code}] Failed to upload a decal")
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to upload a decal ({advertname}).")
 
 class AudioClass():
     def __init__(self, cookie):
