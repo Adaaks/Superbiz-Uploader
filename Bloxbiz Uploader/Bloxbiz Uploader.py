@@ -123,7 +123,7 @@ class RevenueScraper():
         return month_dict
 count = 0
  
-print(f"{Fore.CYAN}Please select a game, reply with a number choice.")
+
 
 ask2 = getgameid['data']
 list = []
@@ -135,16 +135,23 @@ actualmax = max
 max = -1
 current = 1
 actualcurrent = 0
+
+if actualmax == 0:
+    print(f"{Fore.RED}Error, you have no games connected to bloxbiz.")
+    input()
+else:
+    print(f"{Fore.CYAN}Please select a game, reply with a number choice.")
 for i in range(actualmax):
     gamename = getgameid['data'][actualcurrent]['game_name']
     print(f"{Fore.YELLOW}[{current}] {gamename}")
     current +=1
     actualcurrent +=1
-print("\n")
+
 def inputs2():
     global gameid
     try:
 
+        
         whichone = int(input(f"{Fore.MAGENTA}Enter your choice: "))
     
         if whichone <= actualmax and whichone >= 1:
@@ -152,6 +159,7 @@ def inputs2():
             gameid = getgameid['data'][whichone-1]["game_id"]
             print("\n")
             print(f"{Fore.CYAN}Game: {gamename}")
+        
         else:
             print(f"{Fore.RED}Error, please choose between games: 1-{actualmax}")
             print("\n")
