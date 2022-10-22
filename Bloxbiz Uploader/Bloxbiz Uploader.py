@@ -436,7 +436,10 @@ class CountScraper():
                         if ad.get("creative_audio_s3") not in drls:
                             drls.append(ad.get("creative_audio_s3"))
                             countads+=1
-                if ad["ad_url"] is None:
+                try:
+                    if ad["ad_url"] is None:
+                        continue
+                except:
                     continue
                 for ad_idx, ad_url in enumerate(ad["ad_url"],0):
                     if type(ad_url) == str:
@@ -477,7 +480,10 @@ class DataScraper():
 
                             Audio = AudioClass(cookie)
                             Audio.upload()
-                if ad["ad_url"] is None:
+                try:
+                    if ad["ad_url"] is None:
+                        continue
+                except:
                     continue
                 for ad_idx, ad_url in enumerate(ad["ad_url"],0):
                     if type(ad_url) == str:
