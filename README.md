@@ -1,21 +1,9 @@
+<h1 align="center"><a href="https://www.buymeacoffee.com/adaks"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adaks&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a></h1>
 <h1 align="center">Bloxbiz Uploader</h1>
 <h3 align="center">This program will allow automate the process of uploading the ads to roblox and back to bloxbiz.
 </h3>
 
 
-## Note
-WARNING: By running this program, you agree for all of the ads here:
-https://dev.bloxbiz.com/dashboard/ad-control to be uploaded to your game.
-
-Not affiliated with Bloxbiz or Super Biz
-- Created by a user of the service
-
-The program was made with python version: 3.10
-- When installing python, make sure to check the option ADD PYTHON TO PATH.
-
-## More
-If you would like to donate, it is massively appreciated. :)
-- https://www.buymeacoffee.com/adaks
 
 <h1 align="center">Instructions</h1>
 
@@ -64,3 +52,13 @@ You will be prompted what game to choose, upon selection the program will inform
 It will then begin to upload the ads, if you have any available.
 
 ![alt text](https://cdn.discordapp.com/attachments/854241200622403586/1014541507329523792/unknown.png)
+
+## Note
+WARNING: By running this program, you agree for all of the ads here:
+https://dev.bloxbiz.com/dashboard/ad-control to be uploaded to your game.
+
+Not affiliated with Bloxbiz or Super Biz
+- Created by a user of the service
+
+The program was made with python version: 3.10
+- When installing python, make sure to check the option ADD PYTHON TO PATH.
