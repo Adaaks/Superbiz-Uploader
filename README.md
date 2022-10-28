@@ -9,7 +9,7 @@
 <h3 align="center">This program will allow automate the process of uploading the ads to roblox and back to superbiz.</h3>
 
 # Notices 
-- This program is not affiliated with Superbiz, it is created by a user of the service (Adaks#0001 - 519182822616072217)
+- This program is not affiliated with Superbiz, it is created by a user of the service (Adaks#0001)
 - By running the program, you agree for all of the ads to be uploaded
 #
 - Please install this version of python (3.10) to ensure everything works as smoothly as possible, if you have any other versions of python - remove them
