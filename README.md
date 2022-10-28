@@ -1,5 +1,5 @@
 <h1 align="center">⚡ Superbiz Uploader ⚡</h1>
-<h3 align="center">This program will allow automate the process of uploading the ads to roblox and back to bloxbiz.</h3>
+<h3 align="center">This program will allow automate the process of uploading the ads to roblox and back to superbiz.</h3>
 
 # Notices 
 - This program is not affiliated with Superbiz, it is created by a user of the service (Adaks#0001 - 519182822616072217)
@@ -16,7 +16,7 @@
 <h1 align="center">Instructions</h1>
 
 # Step 1
-- Click [here](https://github.com/Adaaks/Bloxbiz-Uploader/archive/refs/heads/main.zip) to download the program
+- Click [here](https://github.com/Adaaks/Superbiz-Uploader/archive/refs/heads/main.zip) to download the program
 
 # Step 2
 
@@ -56,15 +56,15 @@ If you receive an error like:
 - Then, go to the roblox page, click on the extension, go to .ROBLOSECURITY, and copy all contents inside it (3)
 ![alt text](https://cdn.discordapp.com/attachments/698329423715369042/1035343906142953472/unknown.png)
 #
-- Next, you will need to enter your bloxbiz email and password that you used to login into the site, this will be used to submit the ads
+- Next, you will need to enter your superbiz email and password that you used to login into the site, this will be used to submit the ads
 
 ![alt text](https://cdn.discordapp.com/attachments/854241200622403586/1014541172699570277/unknown.png)
 
 
 # Step 6
 
-- You're now ready to open up Bloxbiz Uploader.py
-- You will be welcomed into the program (with the name you used for bloxbiz account settings)
+- You're now ready to open up Superbiz Uploader.py
+- You will be welcomed into the program (with the name you used for superbiz account settings)
 - You may have to wait a couple seconds for your games to load
 - You will will be prompted to enter which game you would like to choose
 - The program will show you the game's ad revenue for current and previous month
