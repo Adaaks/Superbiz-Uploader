@@ -1,4 +1,11 @@
-<h1 align="center">⚡ Superbiz Uploader ⚡</h1>
+
+
+
+
+<div id="header" align="center">
+  <img src="https://cdn.discordapp.com/attachments/698329423715369042/1035598812691054662/eeewgef.png" width="800"/>
+</div>
+
 <h3 align="center">This program will allow automate the process of uploading the ads to roblox and back to superbiz.</h3>
 
 # Notices 
@@ -11,7 +18,7 @@
 #
 **Donations to support my work - it's massively appreciated**
 
-<a href="https://www.buymeacoffee.com/adaks"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adaks&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" /></a>
+<a href="https://www.buymeacoffee.com/adaks"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adaks&button_colour=ffc800&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
 <h1 align="center">Instructions</h1>
 
