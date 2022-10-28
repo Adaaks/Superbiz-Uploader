@@ -4,7 +4,7 @@ try:
     import urllib.request
     import os
     import ctypes
-    ctypes.windll.kernel32.SetConsoleTitleW("Bloxbiz Uploader - By Adaks")
+    ctypes.windll.kernel32.SetConsoleTitleW("Superbiz Uploader - By Adaks")
     os.system('cls')
     import json
     import configparser
@@ -53,7 +53,7 @@ def login(mail,password):
         res = res.json()
         res2 = res['access_token']
     except:
-        print(f"{Fore.RED}[ERROR] Your bloxbiz credentials are invalid.")
+        print(f"{Fore.RED}[ERROR] Your superbiz credentials are invalid.")
         input()
     return s
 
@@ -61,7 +61,7 @@ session = login(email,password)
 
 headers = {
     'authorization': f"Bearer {res2}",
-    'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
+    'user-agent': 'Superbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)'
     }
 lol = session.get("https://portal-api.bloxbiz.com/dev/account/details", headers=headers)
 lol = lol.json()
@@ -72,7 +72,7 @@ first_name = lol['data']['first_name']
 import json
 import datetime
 
-print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to bloxbiz.")
+print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to superbiz.")
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
 
@@ -137,7 +137,7 @@ current = 1
 actualcurrent = 0
 
 if actualmax == 0:
-    print(f"{Fore.RED}Error, you have no games connected to bloxbiz.")
+    print(f"{Fore.RED}Error, you have no games connected to superbiz.")
     input()
 else:
     print(f"{Fore.CYAN}Please select a game, reply with a number choice.")
@@ -255,7 +255,7 @@ class DecalClass():
                 
                 'onVerificationPage': "False",
                 "captchaEnabled": "True",
-                'name': "Bloxbiz"
+                'name': "Superbiz"
             }
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
@@ -276,7 +276,7 @@ class DecalClass():
             payload={
               "game_id": gameid,
               "bloxbiz_id": bloxbizid,
-              "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz",
+              "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Superbiz",
               "sheet_index": ad_idx
               }
             
@@ -284,13 +284,13 @@ class DecalClass():
             payload={
                 "game_id": gameid,
                 "bloxbiz_id": bloxbizid,
-                "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Bloxbiz"
+                "dev_creative_asset_url": f"https://www.roblox.com/catalog/{assetid}/Superbiz"
                 }
             
         headers = {
             
             'authorization': f"Bearer {res2}",
-            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
+            'user-agent': 'Superbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)'
             }
         
         finalone1 = session.post(finalone,headers=headers,json=payload)
@@ -412,7 +412,7 @@ class AudioClass():
         headers = {
 
             'authorization': f"Bearer {res2}",
-            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Bloxbiz-Uploader)'
+            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)'
         }
 
         finalone3 = session.post(finalone3, headers=headers, json=data69)
