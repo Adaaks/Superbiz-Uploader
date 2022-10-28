@@ -21,7 +21,7 @@
 
 ![alt text](https://cdn.discordapp.com/attachments/698329423715369042/1035604795509182624/unknown.png)
 
-**Donations to support my work - it's massively appreciated**
+**Donate to support my work - it's massively appreciated**
 
 <a href="https://www.buymeacoffee.com/adaks"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adaks&button_colour=ffc800&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
