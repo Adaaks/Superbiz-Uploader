@@ -53,8 +53,26 @@ def login(mail,password):
         res = res.json()
         res2 = res['access_token']
     except:
-        print(f"{Fore.RED}[ERROR] Your superbiz credentials are invalid.")
-        input()
+        try:
+             s = requests.Session()
+             payload = {
+                "audience": "https://dev.bloxbiz.com",
+                "client_id": "4CUqNqmxQH9gkoHH6JadmtGp3R3Eq5DM",
+                "grant_type": "http://auth0.com/oauth/grant-type/password-realm",
+                "password": password,
+                "realm": "Username-Password-Authentication",
+                "scope": "openid profile email",
+                "username": mail
+                }
+
+             res = s.post("https://dev-4bkwj9o4.us.auth0.com/oauth/token",json=payload)
+             s.headers.update({'authorization': json.loads(res.content)['access_token']})
+             res = res.json()
+             res2 = res['access_token']
+            
+        except:
+            print(f"{Fore.RED}[ERROR] Your superbiz credentials are invalid.")
+            input()
     return s
 
 session = login(email,password)
