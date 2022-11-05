@@ -71,8 +71,7 @@ def login(mail,password):
              res2 = res['access_token']
             
         except:
-            print(f"{Fore.RED}[ERROR] Your superbiz credentials are invalid.")
-            input()
+            print(f"{Fore.RED}[ERROR] Your superbiz credentials are invalid."
     return s
 
 session = login(email,password)
