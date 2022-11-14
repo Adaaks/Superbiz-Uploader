@@ -382,20 +382,39 @@ class AudioClass():
 
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
             files = {'file': ('lol.mp3', f, 'audio/wav')}
-            data = {
-                '__RequestVerificationToken': self.getToken(),
-                'assetTypeId': '3',
-                'isOggUploadEnabled': 'True',
-                'isTgaUploadEnabled': 'True',
+            if int(groupid) > 100:
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '3',
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
 
-                'onVerificationPage': "False",
-                "captchaEnabled": "True",
-                'name': f"{filename}"
-            }
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': f"{filename}",
+                    'groupId': groupid
+                }
+
+            else:
+
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '3',
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': f"{filename}"
+                }
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
             new = responseurl.split("=")
-            assetid = new[2]
+            
+            if int(groupid) > 100:
+                assetid = new[3]
+            else:
+                assetid = new[2]
 
         if response.status_code == 200:
         
