@@ -1,9 +1,14 @@
 
 try:
+    import time
+    from datetime import datetime, timedelta
     import requests
     import urllib.request
     import os
     import ctypes
+    import json
+    import datetime
+    
     ctypes.windll.kernel32.SetConsoleTitleW("Superbiz Uploader - By Adaks")
     os.system('cls')
     import json
@@ -34,7 +39,10 @@ config.read_file(open(r"Setup.ini"))
 cookie = str(config.get("roblox","cookie"))
 email = str(config.get("bloxbiz","email"))
 password = str(config.get("bloxbiz","password"))
+groupid = str(config.get("roblox","groupid"))
+
 res2 = ""
+failedlist = []
 def login(mail,password):
     global res2
     s = requests.Session()
@@ -54,6 +62,7 @@ def login(mail,password):
         res2 = res['access_token']
     except:
         print(f"{Fore.RED}[ERROR] Your superbiz credentials are invalid.")
+        time.sleep(5)
     return s
 
 session = login(email,password)
@@ -67,9 +76,6 @@ lol = lol.json()
 bloxbizid = lol['data']['bloxbiz_id']
 apikey = lol['data']['api_key']
 first_name = lol['data']['first_name']
-
-import json
-import datetime
 
 print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to superbiz.")
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
@@ -240,35 +246,54 @@ class DecalClass():
         return veri
     
     def upload(self):
-        global assetid, bloxbizid, gameid, guid, countuploaded
+        global assetid, bloxbizid, gameid, guid, countuploaded,failedlist
         path = os.getcwd()
         path = f"{path}\\Ads"
         
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
             files = {'file': ('lol.png', f, 'image/png')} 
-            data = {
-                '__RequestVerificationToken': self.getToken(),
-                'assetTypeId': '13', 
-                'isOggUploadEnabled': 'True',
-                'isTgaUploadEnabled': 'True',
+
+            if int(groupid) > 100:
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '13', 
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+                    
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': "Superbiz",
+                    'groupId': groupid
+                }
+            else:
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '13', 
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+                    
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': "Superbiz"
+                }
                 
-                'onVerificationPage': "False",
-                "captchaEnabled": "True",
-                'name': "Superbiz"
-            }
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
             new = responseurl.split("=")
-            assetid = new[2]
+
+            if int(groupid) > 100:
+                assetid = new[3]
+            else:
+                assetid = new[2]
+
+        if response.status_code == 200:
+            print(f"{Fore.GREEN}- Successfully uploaded a decal to roblox")
+
+        else:
+            print(f"{Fore.RED}- Failed to upload a decal to roblox")
             
-        path = os.getcwd()
-        folder_path = (fr'{path}\\Ads')
-        test = os.listdir(folder_path)
         
-        for images in test:
-            if images.endswith(".png"):
-                os.remove(os.path.join(folder_path, images))
-        session = login(email,password)
+        
         finalone = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
         
         if gif == True and static == False:
@@ -295,10 +320,27 @@ class DecalClass():
         finalone1 = session.post(finalone,headers=headers,json=payload)
         
         if finalone1.status_code == 200:
-            countuploaded+=1
-            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully uploaded a decal ({advertname}).")
+            countuploaded +=1
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully submitted a decal to superbiz ({advertname})")
+            path = os.getcwd()
+            folder_path = (fr'{path}\\Ads')
+            test = os.listdir(folder_path)
+
+            for images in test:
+                if images.endswith(".mp3"):
+                    os.remove(os.path.join(folder_path, images))
+            for images in test:
+                if images.endswith(".png"):
+                    os.remove(os.path.join(folder_path, images))
         else:
-            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to upload a decal ({advertname}).")
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to submit a decal to superbiz ({advertname})")
+            if guid not in failedlist:
+                print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Retrying to upload the decal ({advertname})")
+                print("\n")
+                failedlist.append(guid)
+                Decal = DecalClass(cookie)
+                Decal.upload()
+        print("\n")
 
 class AudioClass():
     def __init__(self, cookie):
@@ -334,7 +376,7 @@ class AudioClass():
         return veri
 
     def upload(self):
-        global assetid, bloxbizid, gameid, guid, countuploaded
+        global assetid, bloxbizid, gameid, guid, countuploaded, failedlist
         path = os.getcwd()
         path = f"{path}\\Ads"
 
@@ -355,16 +397,12 @@ class AudioClass():
             new = responseurl.split("=")
             assetid = new[2]
 
-        path = os.getcwd()
-        folder_path = (fr'{path}\\Ads')
-        test = os.listdir(folder_path)
-
-        for images in test:
-            if images.endswith(".mp3"):
-                os.remove(os.path.join(folder_path, images))
-        for images in test:
-            if images.endswith(".png"):
-                os.remove(os.path.join(folder_path, images))
+        if response.status_code == 200:
+        
+            print(f"{Fore.GREEN}- Successfully uploaded a audio to roblox")
+        else:
+            print(f"{Fore.RED}- Failed to upload a audio to roblox")
+            
 
 
         session = requests.Session()
@@ -396,9 +434,12 @@ class AudioClass():
         }
         url2 = f"https://apis.roblox.com/asset-permissions-api/v1/assets/{assetid}/permissions"
         grantperms = session.patch(url2, headers=headers,json=data2)
-
-
-        session = login(email, password)
+        if grantperms.status_code == 200:
+            print(f"{Fore.GREEN}- Successfully granted audio permissions to roblox")
+        else:
+            print(f"{Fore.RED}- Failed to grant audio permissions to roblox")
+           
+        
         finalone3 = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
 
         data69 = {
@@ -416,12 +457,30 @@ class AudioClass():
 
         finalone3 = session.post(finalone3, headers=headers, json=data69)
 
-
         if finalone3.status_code == 200:
-            countuploaded += 1
-            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully uploaded a audio ({advertname}).")
+            countuploaded +=1
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully submitted a audio to superbiz ({advertname})")
+
+            path = os.getcwd()
+            folder_path = (fr'{path}\\Ads')
+            test = os.listdir(folder_path)
+
+            for images in test:
+                if images.endswith(".mp3"):
+                    os.remove(os.path.join(folder_path, images))
+            for images in test:
+                if images.endswith(".png"):
+                    os.remove(os.path.join(folder_path, images))
         else:
-            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to upload a audio ({advertname}).")
+            print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to submit a audio to superbiz ({advertname})")
+            if guid not in failedlist:
+                print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Retrying to upload the audio ({advertname})")
+                print("\n")
+                failedlist.append(guid)
+                Audio = AudioClass(cookie)
+                Audio.upload()
+            
+        print("\n")
 filename = ""
 
 class CountScraper():
@@ -455,13 +514,30 @@ class CountScraper():
 
 scrapers = CountScraper()
 drls = scrapers.scrape(trs) 
+### Estimation of time to upload the ads
+estimatedsecs = countads * 4.5
+
+x = datetime.datetime.now() + timedelta(seconds=estimatedsecs)
+x = str(x).split(" ")
+x = x[1]
+x = str(x).split(".")
+x = x[0]
+x = x.split(":")
+newx = f"{x[0]}:{x[1]}"
+
+estimatedsecs = round(estimatedsecs)
+estimatedminutes = estimatedsecs / 60
+estimatedminutes = round(estimatedminutes)
+print(f"{Fore.MAGENTA}Estimation: {estimatedminutes} minutes ({newx})\n")
 
 class DataScraper():
     def scrape(self, data):
-        global assetid, headers, guid, gif, static, ad_idx, filename,advertname
+        global assetid, headers, guid, gif, static, ad_idx, filename,advertname, lol2
         urls = []
         for campain in data["data"]:
             advertname = campain.get('campaign_name')
+            advertname = advertname.split( )
+            advertname = advertname[0]
             for ad in campain["ads"]:
                 if ad.get("dev_creative_asset_url") is None:
                     if ad.get("creative_audio_s3") is not None:
@@ -479,6 +555,7 @@ class DataScraper():
 
                             Audio = AudioClass(cookie)
                             Audio.upload()
+                            
                 try:
                     if ad["ad_url"] is None:
                         continue
@@ -498,6 +575,7 @@ class DataScraper():
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
                                 
+                                
                         continue
                     if ad_url.get("dev_ad_url") is None:
                         if ad_url["creative_asset_s3"] not in urls:
@@ -515,5 +593,9 @@ class DataScraper():
 
 scraper = DataScraper()
 urls = scraper.scrape(trs) 
-print(f"{Fore.GREEN}Completed uploading all adverts.")
+
+if countuploaded >= countads:
+    print(f"{Fore.GREEN}Successfully uploaded all adverts to your superbiz account.")
+else:
+    print(f"{Fore.RED}There may have been issues with uploading all adverts to superbiz\n- Try re-running the program\n- Check your ad control to make sure everything has been uploaded")
 input()                
