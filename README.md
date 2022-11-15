@@ -23,7 +23,7 @@
 
 **Donate to support my work - it's massively appreciated**
 
-<a href="https://www.buymeacoffee.com/adaks"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adaks&button_colour=ffc800&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a>
+<a href="https://www.buymeacoffee.com/adaks"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=adaks&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
 <h1 align="center">Instructions</h1>
 
