@@ -8,7 +8,7 @@ try:
     import ctypes
     import json
     import datetime
-    
+    import sys
     ctypes.windll.kernel32.SetConsoleTitleW("Superbiz Uploader - By Adaks")
     os.system('cls')
     import json
@@ -22,8 +22,21 @@ except:
     print("[ERROR] There was an issue importing the required modules, make sure to install all modules in requirements.txt.")
     input()
 
+
+my_os=sys.platform
+mac=False
+windows=False
+
+if my_os=="darwin":
+    mac=True
+else:
+    windows=True
+
 path = os.getcwd()
-folder_path = (fr'{path}\\Ads')
+if windows == True:
+    folder_path = (fr'{path}\\Ads')
+elif mac == True:
+    folder_path = (fr'{path}//Ads')
 test = os.listdir(folder_path)
 
 for images in test:
@@ -35,7 +48,6 @@ for images in test:
 
 config = configparser.ConfigParser()
 config.read_file(open(r"Setup.ini"))
-
 cookie = str(config.get("roblox","cookie"))
 email = str(config.get("bloxbiz","email"))
 password = str(config.get("bloxbiz","password"))
@@ -248,7 +260,10 @@ class DecalClass():
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded,failedlist
         path = os.getcwd()
-        path = f"{path}\\Ads"
+        if windows == True:
+            path = f"{path}\\Ads"
+        elif mac == True:
+            path = f"{path}//Ads"
         
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
             files = {'file': ('lol.png', f, 'image/png')} 
@@ -323,7 +338,12 @@ class DecalClass():
             countuploaded +=1
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully submitted a decal to superbiz ({advertname})")
             path = os.getcwd()
-            folder_path = (fr'{path}\\Ads')
+
+            if windows == True:
+                folder_path = (fr'{path}\\Ads')
+            elif mac == True:
+                folder_path = (fr'{path}//Ads')
+
             test = os.listdir(folder_path)
 
             for images in test:
@@ -378,7 +398,10 @@ class AudioClass():
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded, failedlist
         path = os.getcwd()
-        path = f"{path}\\Ads"
+        if windows == True:
+            path = f"{path}\\Ads"
+        elif mac == True:
+            path = f"{path}//Ads"
 
         with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
             files = {'file': ('lol.mp3', f, 'audio/wav')}
@@ -481,7 +504,11 @@ class AudioClass():
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully submitted a audio to superbiz ({advertname})")
 
             path = os.getcwd()
-            folder_path = (fr'{path}\\Ads')
+            if windows == True:
+                folder_path = (fr'{path}\\Ads')
+            elif mac == True:
+                folder_path = (fr'{path}//Ads')
+                
             test = os.listdir(folder_path)
 
             for images in test:
@@ -551,7 +578,7 @@ print(f"{Fore.MAGENTA}Estimation: {estimatedminutes} minutes ({newx})\n")
 
 class DataScraper():
     def scrape(self, data):
-        global assetid, headers, guid, gif, static, ad_idx, filename,advertname, lol2
+        global assetid, headers, guid, gif, static, ad_idx, filename,advertname, lol2, windows,mac
         urls = []
         for campain in data["data"]:
             advertname = campain.get('campaign_name')
@@ -568,7 +595,11 @@ class DataScraper():
                             lol2 = ad["creative_audio_url"]
                             new = lol2.split("/")
                             filename = new[5]
-                            urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}\\Ads\\{filename}.mp3")
+                            if windows == True:
+                                urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}\\Ads\\{filename}.mp3")
+                            elif mac == True:
+                                urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}//Ads//{filename}.mp3")
+                            
                             static = False
                             gif = False
 
@@ -588,13 +619,17 @@ class DataScraper():
                                 urls.append(ad["creative_asset_s3"])
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                                urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+
+                                if windows == True:
+                                    urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                elif mac == True:
+                                    urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}//Ads//{guid}.png")
+
                                 static = True
                                 gif = False
                                 Decal = DecalClass(cookie)
                                 Decal.upload()
-                                
-                                
+                              
                         continue
                     if ad_url.get("dev_ad_url") is None:
                         if ad_url["creative_asset_s3"] not in urls:
@@ -602,7 +637,12 @@ class DataScraper():
                                 urls.append(ad_url["creative_asset_s3"])
                                 guid = ad["GUID"]
                                 path = os.getcwd()
-                                urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+
+                                if windows == True:
+                                    urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                elif mac == True:
+                                    urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}//Ads//{guid}.png")
+
                                 gif = True
                                 static = False
                                 Decal = DecalClass(cookie)
