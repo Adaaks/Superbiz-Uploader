@@ -45,8 +45,8 @@ for images in test:
 config = configparser.ConfigParser()
 config.read_file(open(r"Setup.ini"))
 cookie = str(config.get("roblox","cookie"))
-email = str(config.get("bloxbiz","email"))
-password = str(config.get("bloxbiz","password"))
+email = str(config.get("superbiz","email"))
+password = str(config.get("superbiz","password"))
 groupid = str(config.get("roblox","groupid"))
 
 res2 = ""
