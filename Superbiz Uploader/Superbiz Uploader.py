@@ -21,8 +21,7 @@ try:
 except:
     print("[ERROR] There was an issue importing the required modules, make sure to install all modules in requirements.txt.")
     input()
-
-
+    
 my_os=sys.platform
 mac=False
 windows=False
@@ -33,10 +32,7 @@ else:
     windows=True
 
 path = os.getcwd()
-if windows == True:
-    folder_path = (fr'{path}\\Ads')
-elif mac == True:
-    folder_path = (fr'{path}//Ads')
+folder_path = path
 test = os.listdir(folder_path)
 
 for images in test:
@@ -100,6 +96,14 @@ count = 0
 gameid = 0
 countads = 0
 advertname = ""
+
+path = os.getcwd()
+folder_path = path
+
+for images in test:
+    if images.endswith(".txt"):
+        os.remove(os.path.join(folder_path, images))
+
 class RevenueScraper():
 
     def scrape(self, data):
@@ -237,6 +241,8 @@ class DecalClass():
             self.goose.headers.update({
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134", #might as well use a User Agent
             })
+        
+
         except:
             print(f"{Fore.RED}[ERROR] Invalid roblox cookie, please check setup.ini.")
             input()
@@ -249,6 +255,7 @@ class DecalClass():
             soup = BeautifulSoup(response.text, "lxml")
             try: 
                 veri = soup.find("input", {"name" : "__RequestVerificationToken"}).attrs["value"]
+            
             except:
                 print(f"{Fore.RED}Invalid roblox cookie, please check setup.ini\n- Ensure you include the full cookie\n- Ensure the cookie is not in speech marks\n- Ensure it's still valid")
                 input()
@@ -260,12 +267,9 @@ class DecalClass():
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded,failedlist
         path = os.getcwd()
-        if windows == True:
-            path = f"{path}\\Ads"
-        elif mac == True:
-            path = f"{path}//Ads"
+        folder_path = path
         
-        with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
+        with open(f"{path}\\{guid}.png", 'rb') as f:
             files = {'file': ('lol.png', f, 'image/png')} 
 
             if int(groupid) > 100:
@@ -338,11 +342,7 @@ class DecalClass():
             countuploaded +=1
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully submitted a decal to superbiz ({advertname})")
             path = os.getcwd()
-
-            if windows == True:
-                folder_path = (fr'{path}\\Ads')
-            elif mac == True:
-                folder_path = (fr'{path}//Ads')
+            folder_path = path
 
             test = os.listdir(folder_path)
 
@@ -398,12 +398,9 @@ class AudioClass():
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded, failedlist
         path = os.getcwd()
-        if windows == True:
-            path = f"{path}\\Ads"
-        elif mac == True:
-            path = f"{path}//Ads"
+        path=path
 
-        with open(f"{path}\\{os.listdir(path)[0]}", 'rb') as f:
+        with open(f"{path}\\{filename}.mp3", 'rb') as f:
             files = {'file': ('lol.mp3', f, 'audio/wav')}
             if int(groupid) > 100:
                 data = {
@@ -504,10 +501,7 @@ class AudioClass():
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.GREEN} Successfully submitted a audio to superbiz ({advertname})")
 
             path = os.getcwd()
-            if windows == True:
-                folder_path = (fr'{path}\\Ads')
-            elif mac == True:
-                folder_path = (fr'{path}//Ads')
+            folder_path = path
                 
             test = os.listdir(folder_path)
 
@@ -574,7 +568,34 @@ newx = f"{x[0]}:{x[1]}"
 estimatedsecs = round(estimatedsecs)
 estimatedminutes = estimatedsecs / 60
 estimatedminutes = round(estimatedminutes)
-print(f"{Fore.MAGENTA}Estimation: {estimatedminutes} minutes ({newx})\n")
+
+if estimatedminutes == 1:
+    print(f"{Fore.MAGENTA}Estimation: {estimatedminutes} minute ({newx})\n")
+elif estimatedsecs == 0:
+    pass
+elif estimatedsecs <=59:
+    estimatedminutes = estimatedsecs
+    print(f"{Fore.MAGENTA}Estimation: {estimatedminutes} seconds ({newx})\n")
+
+elif estimatedminutes > 1:
+    print(f"{Fore.MAGENTA}Estimation: {estimatedminutes} minutes ({newx})\n")
+
+robloxx = {
+    '.ROBLOSECURITY': cookie
+}
+
+try:
+    ageaccount = requests.get('https://www.roblox.com/my/settings/json', cookies={'.ROBLOSECURITY': cookie})
+    ageaccount2=ageaccount.json()
+    ageaccount3 = ageaccount2['UserAbove13']
+
+    if ageaccount.status_code == 200:
+        if ageaccount3 == False:
+            print(f"{Fore.RED}Error - you have must use a roblox account which is 13+\n- This is because under 13 accounts get ratelimited from uploading roblox decals/audio")
+            input()
+except:
+    pass
+
 
 class DataScraper():
     def scrape(self, data):
@@ -596,9 +617,9 @@ class DataScraper():
                             new = lol2.split("/")
                             filename = new[5]
                             if windows == True:
-                                urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}\\Ads\\{filename}.mp3")
+                                urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}\\{filename}.mp3")
                             elif mac == True:
-                                urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}//Ads//{filename}.mp3")
+                                urllib.request.urlretrieve(ad["creative_audio_s3"], f"{path}//{filename}.mp3")
                             
                             static = False
                             gif = False
@@ -621,9 +642,9 @@ class DataScraper():
                                 path = os.getcwd()
 
                                 if windows == True:
-                                    urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                    urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}\\{guid}.png")
                                 elif mac == True:
-                                    urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}//Ads//{guid}.png")
+                                    urllib.request.urlretrieve(ad["creative_asset_s3"], f"{path}//{guid}.png")
 
                                 static = True
                                 gif = False
@@ -639,9 +660,9 @@ class DataScraper():
                                 path = os.getcwd()
 
                                 if windows == True:
-                                    urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\Ads\\{guid}.png")
+                                    urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}\\{guid}.png")
                                 elif mac == True:
-                                    urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}//Ads//{guid}.png")
+                                    urllib.request.urlretrieve(ad_url["creative_asset_s3"], f"{path}//{guid}.png")
 
                                 gif = True
                                 static = False
@@ -653,8 +674,20 @@ class DataScraper():
 scraper = DataScraper()
 urls = scraper.scrape(trs) 
 
-if countuploaded >= countads:
+if countads == 0:
+    print(f"{Fore.RED}All adverts are already uploaded.")
+elif countuploaded >= countads:
     print(f"{Fore.GREEN}Successfully uploaded all adverts to your superbiz account.")
 else:
-    print(f"{Fore.RED}There may have been issues with uploading all adverts to superbiz\n- Try re-running the program\n- Check your ad control to make sure everything has been uploaded")
+    print(f"{Fore.RED}Completed - there may have been issues with uploading all adverts to superbiz\n- Try re-running the program\n- Check your ad control to make sure everything has been uploaded")
+
+try:
+    for images in test:
+        if images.endswith(".mp3"):
+            os.remove(os.path.join(folder_path, images))
+    for images in test:
+        if images.endswith(".png"):
+            os.remove(os.path.join(folder_path, images))
+except:
+    pass
 input()                
