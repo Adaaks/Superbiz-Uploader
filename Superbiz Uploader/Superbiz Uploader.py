@@ -158,7 +158,7 @@ current = 1
 actualcurrent = 0
 
 if actualmax == 0:
-    print(f"{Fore.RED}Error, you have no games connected to superbiz.")
+    print(f"{Fore.RED}You have no games connected to superbiz.")
     input()
 else:
     print(f"{Fore.CYAN}Please select a game, reply with a number choice.")
@@ -182,12 +182,12 @@ def inputs2():
             print(f"{Fore.CYAN}Game: {gamename}")
         
         else:
-            print(f"{Fore.RED}Error, please choose between games: 1-{actualmax}")
+            print(f"{Fore.RED}Please choose between games: 1-{actualmax}")
             print("\n")
             inputs2()
     
     except:
-        print(f"{Fore.RED}Error, invalid input - enter numbers only.")
+        print(f"{Fore.RED}Invalid input - enter numbers only.")
         print("\n")
         inputs2()
         
@@ -355,7 +355,7 @@ class DecalClass():
         else:
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to submit a decal to superbiz ({advertname})")
             if guid not in failedlist:
-                print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Retrying to upload the decal ({advertname})")
+                
                 print("\n")
                 failedlist.append(guid)
                 Decal = DecalClass(cookie)
@@ -514,7 +514,7 @@ class AudioClass():
         else:
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to submit a audio to superbiz ({advertname})")
             if guid not in failedlist:
-                print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Retrying to upload the audio ({advertname})")
+                
                 print("\n")
                 failedlist.append(guid)
                 Audio = AudioClass(cookie)
