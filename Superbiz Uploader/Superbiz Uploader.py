@@ -268,8 +268,8 @@ class DecalClass():
         global assetid, bloxbizid, gameid, guid, countuploaded,failedlist
         path = os.getcwd()
         folder_path = path
-        
-        with open(f"{path}\\{guid}.png", 'rb') as f:
+        if windows == True:
+            with open(f"{path}\\{guid}.png", 'rb') as f:
             files = {'file': ('lol.png', f, 'image/png')} 
 
             if int(groupid) > 100:
@@ -295,7 +295,36 @@ class DecalClass():
                     "captchaEnabled": "True",
                     'name': "Superbiz"
                 }
-                
+
+        elif mac == True:
+            with open(f"{path}//{guid}.png", 'rb') as f:
+            files = {'file': ('lol.png', f, 'image/png')} 
+
+            if int(groupid) > 100:
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '13', 
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+                    
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': "Superbiz",
+                    'groupId': groupid
+                }
+            else:
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '13', 
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+                    
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': "Superbiz"
+                }
+            
+        
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
             new = responseurl.split("=")
@@ -394,13 +423,13 @@ class AudioClass():
             print(NameError)
             return False
         return veri
-
+    
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded, failedlist
         path = os.getcwd()
         path=path
-
-        with open(f"{path}\\{filename}.mp3", 'rb') as f:
+        if windows == True:
+            with open(f"{path}\\{filename}.mp3", 'rb') as f:
             files = {'file': ('lol.mp3', f, 'audio/wav')}
             if int(groupid) > 100:
                 data = {
@@ -414,7 +443,6 @@ class AudioClass():
                     'name': f"{filename}",
                     'groupId': groupid
                 }
-
             else:
 
                 data = {
@@ -427,6 +455,34 @@ class AudioClass():
                     "captchaEnabled": "True",
                     'name': f"{filename}"
                 }
+        elif mac == True:
+            with open(f"{path}//{filename}.mp3", 'rb') as f:
+            files = {'file': ('lol.mp3', f, 'audio/wav')}
+            if int(groupid) > 100:
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '3',
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': f"{filename}",
+                    'groupId': groupid
+                }
+            else:
+
+                data = {
+                    '__RequestVerificationToken': self.getToken(),
+                    'assetTypeId': '3',
+                    'isOggUploadEnabled': 'True',
+                    'isTgaUploadEnabled': 'True',
+
+                    'onVerificationPage': "False",
+                    "captchaEnabled": "True",
+                    'name': f"{filename}"
+                }
+            
             response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
             responseurl = response.url
             new = responseurl.split("=")
