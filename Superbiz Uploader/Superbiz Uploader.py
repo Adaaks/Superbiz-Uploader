@@ -270,69 +270,69 @@ class DecalClass():
         folder_path = path
         if windows == True:
             with open(f"{path}\\{guid}.png", 'rb') as f:
-            files = {'file': ('lol.png', f, 'image/png')} 
+                files = {'file': ('lol.png', f, 'image/png')} 
 
-            if int(groupid) > 100:
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '13', 
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
-                    
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': "Superbiz",
-                    'groupId': groupid
-                }
-            else:
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '13', 
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
-                    
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': "Superbiz"
-                }
+                if int(groupid) > 100:
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '13', 
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
+
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': "Superbiz",
+                        'groupId': groupid
+                    }
+                else:
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '13', 
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
+
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': "Superbiz"
+                    }
 
         elif mac == True:
             with open(f"{path}//{guid}.png", 'rb') as f:
-            files = {'file': ('lol.png', f, 'image/png')} 
+                files = {'file': ('lol.png', f, 'image/png')} 
 
-            if int(groupid) > 100:
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '13', 
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
-                    
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': "Superbiz",
-                    'groupId': groupid
-                }
-            else:
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '13', 
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
-                    
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': "Superbiz"
-                }
-            
-        
-            response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
-            responseurl = response.url
-            new = responseurl.split("=")
+                if int(groupid) > 100:
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '13', 
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
 
-            if int(groupid) > 100:
-                assetid = new[3]
-            else:
-                assetid = new[2]
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': "Superbiz",
+                        'groupId': groupid
+                    }
+                else:
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '13', 
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
+
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': "Superbiz"
+                    }
+
+
+                response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
+                responseurl = response.url
+                new = responseurl.split("=")
+
+                if int(groupid) > 100:
+                    assetid = new[3]
+                else:
+                    assetid = new[2]
 
         if response.status_code == 200:
             print(f"{Fore.GREEN}- Successfully uploaded a decal to roblox")
@@ -430,67 +430,67 @@ class AudioClass():
         path=path
         if windows == True:
             with open(f"{path}\\{filename}.mp3", 'rb') as f:
-            files = {'file': ('lol.mp3', f, 'audio/wav')}
-            if int(groupid) > 100:
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '3',
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
+                files = {'file': ('lol.mp3', f, 'audio/wav')}
+                    if int(groupid) > 100:
+                        data = {
+                            '__RequestVerificationToken': self.getToken(),
+                            'assetTypeId': '3',
+                            'isOggUploadEnabled': 'True',
+                            'isTgaUploadEnabled': 'True',
 
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': f"{filename}",
-                    'groupId': groupid
-                }
-            else:
+                            'onVerificationPage': "False",
+                            "captchaEnabled": "True",
+                            'name': f"{filename}",
+                            'groupId': groupid
+                        }
+                    else:
 
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '3',
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
+                        data = {
+                            '__RequestVerificationToken': self.getToken(),
+                            'assetTypeId': '3',
+                            'isOggUploadEnabled': 'True',
+                            'isTgaUploadEnabled': 'True',
 
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': f"{filename}"
-                }
+                            'onVerificationPage': "False",
+                            "captchaEnabled": "True",
+                            'name': f"{filename}"
+                        }
         elif mac == True:
             with open(f"{path}//{filename}.mp3", 'rb') as f:
-            files = {'file': ('lol.mp3', f, 'audio/wav')}
-            if int(groupid) > 100:
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '3',
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
+                files = {'file': ('lol.mp3', f, 'audio/wav')}
+                if int(groupid) > 100:
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '3',
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
 
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': f"{filename}",
-                    'groupId': groupid
-                }
-            else:
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': f"{filename}",
+                        'groupId': groupid
+                    }
+                else:
 
-                data = {
-                    '__RequestVerificationToken': self.getToken(),
-                    'assetTypeId': '3',
-                    'isOggUploadEnabled': 'True',
-                    'isTgaUploadEnabled': 'True',
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '3',
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
 
-                    'onVerificationPage': "False",
-                    "captchaEnabled": "True",
-                    'name': f"{filename}"
-                }
-            
-            response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
-            responseurl = response.url
-            new = responseurl.split("=")
-            
-            if int(groupid) > 100:
-                assetid = new[3]
-            else:
-                assetid = new[2]
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': f"{filename}"
+                    }
+
+                response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
+                responseurl = response.url
+                new = responseurl.split("=")
+
+                if int(groupid) > 100:
+                    assetid = new[3]
+                else:
+                    assetid = new[2]
 
         if response.status_code == 200:
         
