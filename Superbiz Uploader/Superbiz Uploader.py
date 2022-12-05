@@ -268,7 +268,9 @@ class DecalClass():
         global assetid, bloxbizid, gameid, guid, countuploaded,failedlist
         path = os.getcwd()
         folder_path = path
+
         if windows == True:
+            
             with open(f"{path}\\{guid}.png", 'rb') as f:
                 files = {'file': ('lol.png', f, 'image/png')} 
 
@@ -278,7 +280,7 @@ class DecalClass():
                         'assetTypeId': '13', 
                         'isOggUploadEnabled': 'True',
                         'isTgaUploadEnabled': 'True',
-
+                        
                         'onVerificationPage': "False",
                         "captchaEnabled": "True",
                         'name': "Superbiz",
@@ -290,12 +292,26 @@ class DecalClass():
                         'assetTypeId': '13', 
                         'isOggUploadEnabled': 'True',
                         'isTgaUploadEnabled': 'True',
-
+                        
                         'onVerificationPage': "False",
                         "captchaEnabled": "True",
                         'name': "Superbiz"
                     }
+                    
+                response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
+                responseurl = response.url
+                new = responseurl.split("=")
 
+                if int(groupid) > 100:
+                    assetid = new[3]
+                else:
+                    assetid = new[2]
+
+            if response.status_code == 200:
+                print(f"{Fore.GREEN}- Successfully uploaded a decal to roblox")
+
+            else:
+                print(f"{Fore.RED}- Failed to upload a decal to roblox")
         elif mac == True:
             with open(f"{path}//{guid}.png", 'rb') as f:
                 files = {'file': ('lol.png', f, 'image/png')} 
@@ -306,7 +322,7 @@ class DecalClass():
                         'assetTypeId': '13', 
                         'isOggUploadEnabled': 'True',
                         'isTgaUploadEnabled': 'True',
-
+                        
                         'onVerificationPage': "False",
                         "captchaEnabled": "True",
                         'name': "Superbiz",
@@ -318,13 +334,12 @@ class DecalClass():
                         'assetTypeId': '13', 
                         'isOggUploadEnabled': 'True',
                         'isTgaUploadEnabled': 'True',
-
+                        
                         'onVerificationPage': "False",
                         "captchaEnabled": "True",
                         'name': "Superbiz"
                     }
-
-
+                    
                 response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
                 responseurl = response.url
                 new = responseurl.split("=")
@@ -334,11 +349,12 @@ class DecalClass():
                 else:
                     assetid = new[2]
 
-        if response.status_code == 200:
-            print(f"{Fore.GREEN}- Successfully uploaded a decal to roblox")
+            if response.status_code == 200:
+                print(f"{Fore.GREEN}- Successfully uploaded a decal to roblox")
 
-        else:
-            print(f"{Fore.RED}- Failed to upload a decal to roblox")
+            else:
+                print(f"{Fore.RED}- Failed to upload a decal to roblox")
+            
             
         
         
@@ -423,39 +439,56 @@ class AudioClass():
             print(NameError)
             return False
         return veri
-    
+
     def upload(self):
         global assetid, bloxbizid, gameid, guid, countuploaded, failedlist
         path = os.getcwd()
         path=path
         if windows == True:
+            
             with open(f"{path}\\{filename}.mp3", 'rb') as f:
                 files = {'file': ('lol.mp3', f, 'audio/wav')}
-                    if int(groupid) > 100:
-                        data = {
-                            '__RequestVerificationToken': self.getToken(),
-                            'assetTypeId': '3',
-                            'isOggUploadEnabled': 'True',
-                            'isTgaUploadEnabled': 'True',
+                if int(groupid) > 100:
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '3',
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
 
-                            'onVerificationPage': "False",
-                            "captchaEnabled": "True",
-                            'name': f"{filename}",
-                            'groupId': groupid
-                        }
-                    else:
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': f"{filename}",
+                        'groupId': groupid
+                    }
 
-                        data = {
-                            '__RequestVerificationToken': self.getToken(),
-                            'assetTypeId': '3',
-                            'isOggUploadEnabled': 'True',
-                            'isTgaUploadEnabled': 'True',
+                else:
 
-                            'onVerificationPage': "False",
-                            "captchaEnabled": "True",
-                            'name': f"{filename}"
-                        }
+                    data = {
+                        '__RequestVerificationToken': self.getToken(),
+                        'assetTypeId': '3',
+                        'isOggUploadEnabled': 'True',
+                        'isTgaUploadEnabled': 'True',
+
+                        'onVerificationPage': "False",
+                        "captchaEnabled": "True",
+                        'name': f"{filename}"
+                    }
+                response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
+                responseurl = response.url
+                new = responseurl.split("=")
+                
+                if int(groupid) > 100:
+                    assetid = new[3]
+                else:
+                    assetid = new[2]
+
+            if response.status_code == 200:
+            
+                print(f"{Fore.GREEN}- Successfully uploaded a audio to roblox")
+            else:
+                print(f"{Fore.RED}- Failed to upload a audio to roblox")
         elif mac == True:
+
             with open(f"{path}//{filename}.mp3", 'rb') as f:
                 files = {'file': ('lol.mp3', f, 'audio/wav')}
                 if int(groupid) > 100:
@@ -470,6 +503,7 @@ class AudioClass():
                         'name': f"{filename}",
                         'groupId': groupid
                     }
+
                 else:
 
                     data = {
@@ -482,21 +516,21 @@ class AudioClass():
                         "captchaEnabled": "True",
                         'name': f"{filename}"
                     }
-
                 response = self.goose.post('https://www.roblox.com/build/upload', files=files, data=data)
                 responseurl = response.url
                 new = responseurl.split("=")
-
+                
                 if int(groupid) > 100:
                     assetid = new[3]
                 else:
                     assetid = new[2]
 
-        if response.status_code == 200:
-        
-            print(f"{Fore.GREEN}- Successfully uploaded a audio to roblox")
-        else:
-            print(f"{Fore.RED}- Failed to upload a audio to roblox")
+            if response.status_code == 200:
+            
+                print(f"{Fore.GREEN}- Successfully uploaded a audio to roblox")
+            else:
+                print(f"{Fore.RED}- Failed to upload a audio to roblox")
+            
             
 
 
