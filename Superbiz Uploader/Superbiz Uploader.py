@@ -50,7 +50,6 @@ password = str(config.get("superbiz","password"))
 groupid = str(config.get("roblox","groupid"))
 
 res2 = ""
-failedlist = []
 def login(mail,password):
     global res2
     s = requests.Session()
@@ -265,7 +264,7 @@ class DecalClass():
         return veri
     
     def upload(self):
-        global assetid, bloxbizid, gameid, guid, countuploaded,failedlist
+        global assetid, bloxbizid, gameid, guid, countuploaded
         path = os.getcwd()
         folder_path = path
 
@@ -399,12 +398,7 @@ class DecalClass():
                     os.remove(os.path.join(folder_path, images))
         else:
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to submit a decal to superbiz ({advertname})")
-            if guid not in failedlist:
-                
-                print("\n")
-                failedlist.append(guid)
-                Decal = DecalClass(cookie)
-                Decal.upload()
+            
         print("\n")
 
 class AudioClass():
@@ -441,7 +435,7 @@ class AudioClass():
         return veri
 
     def upload(self):
-        global assetid, bloxbizid, gameid, guid, countuploaded, failedlist
+        global assetid, bloxbizid, gameid, guid, countuploaded
         path = os.getcwd()
         path=path
         if windows == True:
@@ -603,12 +597,7 @@ class AudioClass():
                     os.remove(os.path.join(folder_path, images))
         else:
             print(f"{Fore.YELLOW}[{countuploaded}/{countads}]{Fore.RED} Failed to submit a audio to superbiz ({advertname})")
-            if guid not in failedlist:
-                
-                print("\n")
-                failedlist.append(guid)
-                Audio = AudioClass(cookie)
-                Audio.upload()
+           
             
         print("\n")
 filename = ""
