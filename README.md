@@ -39,17 +39,10 @@
 
 # Step 3
 
-- Open the folder, till you get to this page - now replace the url bar with: cmd. After, press enter.
-
-![alt text](https://cdn.discordapp.com/attachments/854241200622403586/1014541317067514026/unknown.png)
-
-
-# Step 4
-
-- Ensure you have Python version 3.10
-- Paste in this into the command prompt, to install all python modules:
+- Ensure you have Python version 3.10.0
+- Open up requirements.bat, to install all python modules:
 ```
-pip install -r Requirements.txt
+Requirements.bat
 ```
 
 ![alt text](https://cdn.discordapp.com/attachments/698329423715369042/1035340120171216926/unknown.png)
@@ -61,7 +54,7 @@ If you receive an error like:
 - This means during python installation, you didn't check the 'Add to PATH' box, you must re-install python with this checkbox ticked!
 
 
-# Step 5
+# Step 4
 
 - Open up Setup.ini, paste in roblox cookie (full contents of it, and do not put it in speech marks)
 - If your unaware how to retrieve your roblox cookie, please download [this](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg) chrome extension
@@ -73,7 +66,7 @@ If you receive an error like:
 ![alt text](https://cdn.discordapp.com/attachments/854241200622403586/1014541172699570277/unknown.png)
 
 
-# Step 6
+# Step 5
 
 - You're now ready to open up Superbiz Uploader.py
 - You will be welcomed into the program (with the name you used for superbiz account settings)
