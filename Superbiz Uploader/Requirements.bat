@@ -1,0 +1,9 @@
+pip install requests==2.28.1
+pip install configparser==5.2.0
+pip install urllib3==1.26.11
+pip install bs4==0.0.1
+pip install beautifulsoup4==4.11.1
+pip install lxml
+pip install html5lib
+pip install colorama
+pip install datetime
