@@ -45,9 +45,7 @@
 Requirements.bat
 ```
 
-![alt text](https://cdn.discordapp.com/attachments/698329423715369042/1035340120171216926/unknown.png)
-
-If you receive an error like:
+If you receive an error like/or bat file automatically closed instantly:
 ```
 'pip' is not recognised as an interal or external command
 ```
