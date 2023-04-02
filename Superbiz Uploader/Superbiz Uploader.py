@@ -47,6 +47,7 @@ config.read_file(open(r"Setup.ini"))
 cookie = str(config.get("roblox","cookie"))
 email = str(config.get("superbiz","email"))
 password = str(config.get("superbiz","password"))
+token = str(config.get("superbiz", "token"))
 groupid = str(config.get("roblox","groupid"))
 
 res2 = ""
@@ -72,7 +73,10 @@ def login(mail,password):
         time.sleep(5)
     return s
 
-session = login(email,password)
+if token == "0":
+    session = login(email,password)
+else:
+    res2 = token
 
 headers = {
     'authorization': f"Bearer {res2}",
