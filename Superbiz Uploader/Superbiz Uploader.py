@@ -192,6 +192,9 @@ def inputs2():
         
 inputs2()
 
+headers["x-game-id"] = "% s" % gameid
+headers["x-bloxbiz-id"] = "% s" % bloxbizid
+
 revenuedata = {
     "category": "revenue",
     "end_day": "2099-08-30",
@@ -575,7 +578,9 @@ class AudioClass():
         headers = {
 
             'authorization': f"Bearer {res2}",
-            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)'
+            'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)',
+            'x-game-id': gameid,
+            'x-bloxbiz-id': bloxbizid
         }
 
         finalone3 = session.post(finalone3, headers=headers, json=data69)
