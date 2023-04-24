@@ -380,7 +380,9 @@ class DecalClass():
         headers = {
             
             'authorization': f"Bearer {res2}",
-            'user-agent': 'Superbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)'
+            'user-agent': 'Superbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)',
+            'x-game-id': str(gameid),
+            'x-bloxbiz-id': str(bloxbizid)
             }
         
         finalone1 = session.post(finalone,headers=headers,json=payload)
@@ -579,8 +581,8 @@ class AudioClass():
 
             'authorization': f"Bearer {res2}",
             'user-agent': 'Bloxbiz Uploader (https://github.com/Adaaks/Superbiz-Uploader)',
-            'x-game-id': gameid,
-            'x-bloxbiz-id': bloxbizid
+            'x-game-id': str(gameid),
+            'x-bloxbiz-id': str(bloxbizid)
         }
 
         finalone3 = session.post(finalone3, headers=headers, json=data69)
