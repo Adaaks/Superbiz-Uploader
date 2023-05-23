@@ -88,7 +88,7 @@ print(f"{Fore.GREEN}Welcome, {first_name} - you have successfully logged in to s
 print(f"{Fore.MAGENTA}Please wait whilst I'm loading your games.")
 print("\n")
 
-getgameid = session.get("https://portal-api.bloxbiz.com/dev/games/list?with_live_status=false",headers=headers)
+getgameid = session.get("https://portal-api.bloxbiz.com/games/list?with_live_status=false",headers=headers)
 getgameid = getgameid.json()
 count = 0
 ##################
@@ -221,7 +221,7 @@ print("\n")
     
 ####################################################
         
-getads = f"https://portal-api.bloxbiz.com/dev/dev_campaign_manager/list?game_id={gameid}&bloxbiz_id={bloxbizid}"
+getads = f"https://portal-api.bloxbiz.com/dev_campaign_manager/list?game_id={gameid}&bloxbiz_id={bloxbizid}"
 trs = session.get(getads,headers=headers)
 trs = trs.json()
            
@@ -360,7 +360,7 @@ class DecalClass():
             
         
         
-        finalone = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
+        finalone = f"https://portal-api.bloxbiz.com/ad/update_dev_ad_asset/{guid}"
         
         if gif == True and static == False:
             payload={
@@ -568,7 +568,7 @@ class AudioClass():
             print(f"{Fore.RED}- Failed to grant audio permissions to roblox")
            
         
-        finalone3 = f"https://portal-api.bloxbiz.com/dev/ad/update_dev_ad_asset/{guid}"
+        finalone3 = f"https://portal-api.bloxbiz.com/ad/update_dev_ad_asset/{guid}"
 
         data69 = {
             "bloxbiz_id": bloxbizid,
