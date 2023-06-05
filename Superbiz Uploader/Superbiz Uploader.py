@@ -543,7 +543,7 @@ class AudioClass():
         req2 = session.post(
             url="https://auth.roblox.com/"
         )
-        check = session.get('https://api.roblox.com/currency/balance')
+        
         headers = {
 
             'X-CSRF-Token': f'{session.headers["X-CSRF-Token"]}',
